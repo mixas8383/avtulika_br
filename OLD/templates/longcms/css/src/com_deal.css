@@ -1,0 +1,990 @@
+.deal_company_title,
+.deal_company_url,
+.deal_company_address,
+.deal_company_mail,
+.deal_company_phone,
+.deal_company_hours,
+.deal_company_fb_url
+{
+	padding-bottom:10px;
+}
+.deal_company_url span,
+.deal_company_address span,
+.deal_company_mail span,
+.deal_company_phone span,
+.deal_company_hours span,
+.deal_company_fb_url span
+{
+	float:right;
+	width:284px;
+	line-height:24px;
+}
+.deal_company_title span
+{
+	float:right;
+	width:284px;
+	font-weight:bold;
+	line-height:24px;
+}
+.deals_notfound
+{
+	text-align:center;
+	font-weight:bold;
+	color:#e00707;
+}
+.deals_pagination .pagination
+{
+	display:table;
+	margin:10px auto 0;
+}
+.deal
+{
+	float:left;
+	width:319px;
+	height:410px;
+	position: relative;
+}
+.deal_items
+{
+	padding-bottom:10px;
+}
+.deal_items .deal:first-child
+{
+	float:left;
+	width:298px;
+}
+.deal_in
+{
+	margin-left:21px;
+	border:5px solid #ECECEC;
+	height:400px;
+}
+.deal_in1
+{
+	padding:0 10px;
+}
+.deal_new_price
+{
+	position:absolute;
+	bottom:60px;
+	right:0px;
+	width:105px;
+	height:40px;
+	background:url(../images/new_price.png);
+	background-position:center;
+	background-repeat:no-repeat;
+	color:#FFFFFF;
+	line-height:40px;
+	font-size:20px;
+}
+.deal_in:hover
+{
+	border:5px solid #ED1C24;
+}
+.deal_items .deal:first-child .deal_in
+{
+	margin:0;
+}
+.deal_title
+{
+	height:61px;
+	background:#F5F8FA;
+	padding:0 10px;
+}
+.deal_title1
+{
+	height:60px;
+	display:table-cell;
+	font-weight:bold;
+	overflow:hidden;
+	vertical-align:middle;
+	text-align:center;
+	border-bottom:1px solid #B4B4B4;
+}
+.deal_image
+{
+	text-align:center;
+	padding:10px 0;
+	position:relative;
+}
+.deal_installment
+{
+	position:absolute;
+	bottom:10px;
+	left:0px;
+	width:268px;
+	height:45px;
+}
+.deal_installment a
+{
+	display:block;
+	width:268px;
+	height:45px;
+	background:url(../images/ganvadeba.png);
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+.deal_installment2
+{
+	position:absolute;
+	bottom:10px;
+	left:0px;
+	width:268px;
+	height:53px;
+}
+.deal_installment2 a
+{
+	font-size: 20px !important;
+	color: #ffffff;
+	text-align:left;
+	font-weight: bold;
+	padding-top: 16px;
+	padding-left: 22px;
+	display:block;
+	width:246px;
+	height:45px;
+	background:url(../images/ganvadeba2.png);
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+.deal_installment2 a:hover
+{
+	text-decoration: none;
+}
+
+
+/*.deal_installment a:hover
+{
+	display:block;
+	width:268px;
+	height:45px;
+	background:url(../images/ganvadebah.png);
+	background-position:center;
+	background-repeat:no-repeat;
+}*/
+.deal_image a
+{
+	font-size:0px;
+}
+.deal_price
+{
+	font-size:13px;
+	padding-bottom:5px;
+}
+.deal_price .deal_price1
+{
+	font-size:13px;
+	font-weight:bold;
+	color:#ED1C24;
+}
+.deal_price .deal_price2
+{
+	font-size:13px;
+	text-decoration:line-through;
+	color:#B0B0B0;
+	font-weight:bold;
+}
+.deal_sold
+{
+	font-size:13px;
+	padding-bottom:5px;
+}
+.deal_sold span
+{
+	background:url(../images/sold.png);
+	background-position:left center;
+	background-repeat:no-repeat;
+	padding-left:25px;
+	font-size:13px;
+	color:#ED1C24;
+	font-weight:bold;
+}
+.deal_more a
+{
+	display:block;
+	width:93px;
+	height:26px;
+	background:url(../images/sprite.png);
+	background-position:0 -326px;
+	background-repeat:no-repeat;
+}
+/*.deal_more a:hover
+{
+	background:url(../images/sprite.png);
+	background-position:0 -326px;
+	background-repeat:no-repeat;
+}*/
+.deal_time span
+{
+	font-weight:bold;
+}
+.deal_more
+{
+	position:absolute;
+	width:93px;
+	height:26px;
+	right:0px;
+	top:10px;
+}
+.deal_block
+{
+	position:relative;
+	border-top:1px solid #B4B4B4;
+	padding-top:5px;
+}
+/*start deal_page*/
+.deal_bimg_in img
+{
+	border-bottom:1px solid #C1C1C1;
+}
+.deal_imgs
+{
+	float:left;
+	width:592px;
+}
+.deal_specifications
+{
+	float:right;
+	width:324px;
+}
+.deal_bimgs
+{
+	border:5px solid #ED1C24;
+	margin-bottom:5px;
+}
+.deal_img_block
+{
+	background:url(../images/bg_deal_price.png);
+	height:74px;
+	padding:10px;
+	position:relative;
+}
+.price_old
+{
+	float:left;
+	width:106px;
+	text-align:center;
+}
+.price_current
+{
+	float:left;
+	width:130px;
+	text-align:center;
+	color:#bd0505;
+}
+.price_current .deal_price1
+{
+	color:#bd0505 !important;
+}
+.deal_price_sold
+{
+	padding-bottom:10px;
+}
+.dealin_price
+{
+    font-size: 16px;
+	display:block;
+	float:left;
+	width:236px;
+}
+.price_danazog
+{
+	float:left;
+	width:86px;
+	text-align:center;
+	font-size:16px;
+}
+.dealin_price .deal_price1
+{
+    color: #ED1C24;
+    font-size: 16px;
+    font-weight: bold;
+}
+.dealin_price .deal_price2
+{
+    color: #B0B0B0;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+.dealin_sold
+{
+    font-size: 16px;
+	float:left;
+	width:106px;
+	text-align:center;
+}
+.dealin_price .deal_price2
+{
+    color: #B0B0B0;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+.dealin_sold span
+{
+    color: #f08818;
+    font-size: 16px;
+}
+.deal_buy
+{
+	position:absolute;
+	width:121px;
+	height:42px;
+	bottom:15px;
+	right:15px;
+}
+.deal_sold_out
+{
+	position:absolute;
+	width:253px;
+	height:215px;
+	right:0px;
+	bottom:-3px;
+	z-index: 100000;
+}
+.deal_sold_out2 {
+	font-weight: bold;
+	color: red;
+	font-size: 16px;
+}
+.deal_buy button
+{
+	display:block;
+	background:url(../images/sprite.png);
+	background-position:0 -352px;
+	background-repeat:no-repeat;
+	width:121px;
+	height:42px;
+	cursor:pointer;
+	border:none;
+}
+/*.deal_buy button:hover
+{
+	background:url(../images/sprite.png);
+	background-position:0 -352px;
+	background-repeat:no-repeat;
+}*/
+.dealin_time
+{
+	font-size:16px;
+}
+.deal_simgs,
+.deal_socials
+{
+	padding-bottom:10px;
+}
+.deal_simgs span
+{
+	font-size:0;
+}
+.deal_simgs span img
+{
+	border:1px solid #DADADA;
+	margin-left:8px;
+	padding:1px;
+	cursor:pointer;
+}
+.deal_simgs span:first-child img
+{
+	margin:0;
+}
+.deal_simgs span img:hover,
+.deal_simgs span.active img
+{
+	border:1px solid #ED1C24;
+}
+.deal_description
+{
+	line-height:1.5em;
+	font-size:13px;
+	background:#F1F1F1;
+	padding:5px;
+	margin-bottom:10px;
+}
+.deal_text2 span
+{
+	background:#F1F1F1 !important;
+}
+.deal_text2
+{
+	background:#F1F1F1;
+	line-height:1.5em;
+	font-size:14px;
+	padding:5px;
+}
+.deal_title2
+{
+	font-size:16px;
+	font-weight:bold;
+	padding-bottom:10px;
+	color:#3B5999;
+}
+.deal_title3
+{
+	font-size:16px;
+	font-weight:bold;
+	padding-bottom:10px;
+	margin-top: 10px;
+}
+.deal_company_title2
+{
+	font-size:16px;
+	font-weight:bold;
+	padding:15px 0;
+}
+
+
+.deal_company
+{
+	padding-bottom:5px;
+	font-size:16px;
+	font-weight:bold;
+}
+.deal_company_desc
+{
+	font-size:14px;
+	padding-bottom:10px;
+}
+.deal_company_desc ul
+{
+	margin:10px 20px;
+}
+.deal_text2 ul
+{
+	margin:10px 40px;
+}
+/*en deal_page*/
+/*start requestdeal*/
+.requestdeal_text
+{
+	padding-bottom:20px;
+}
+.rd_labelinput
+{
+	padding:5px 40px;
+}
+.rd_label
+{
+	float:left;
+	width:35%;
+	text-align:right;
+	line-height:34px;
+	font-weight:bold;
+}
+.rd_label label
+{
+	padding-right:5px;
+}
+.rd_field
+{
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+    height: 16px;
+    padding: 10px;
+    width: 273px;
+}
+.rd_field:hover,
+.rd_input textarea:hover
+{
+	background:#F6F6F6;
+}
+.rd_input
+{
+	float:left;
+	width:65%;
+}
+.deal_check
+{
+	padding-left:35%;
+}
+.rd_input textarea
+{
+	border:1px solid #CCCCCC;
+	font-size:11px;
+	padding:2px;
+	width:289px;
+}
+.star
+{
+	color:#D9271E;
+}
+/*end requestdeal*/
+/*start buy*/
+.buy_deal_title
+{
+	font-size:13px;
+	font-weight:bold;
+	padding-bottom:5px;
+}
+.buy_deal_img
+{
+	padding-bottom:15px;
+}
+.buy_deal_img img
+{
+	border:1px solid #DADADA;
+}
+.buy_deal_img img:hover
+{
+	border:1px solid #FAB366;
+}
+.deals_buy
+{
+	position:relative;
+}
+#buy_deal_price
+{
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+.buy_deal_price
+{
+    font-family: "BPGNinoMtavruli";
+    font-size: 17px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.buy_deal_price1
+{
+    font-size: 17px;
+	color:#e00707;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.buy_braoin,
+.buy_installmentin
+{
+	padding-left:69px;
+}
+.buy_visa
+{
+	margin-top: 20px;
+	float:left;
+	width:266px;
+}
+.buy_brao,
+.buy_installment
+{
+	margin-top: 20px;
+	float:left;
+	width:335px;
+}
+.dealbuy_title
+{
+    font-family: "BPGNinoMtavruli";
+    font-size: 16px;
+    font-weight: bold;
+	height:26px;
+	line-height:34px;
+    padding-bottom: 4px;
+	text-align:center;
+}
+.buy_brao_in,
+.buy_visa_in,
+.buy_brao_installment,
+.buy_brao_installment_disable
+{
+	border:5px solid #B4B4B4;
+}
+.buy_brao_in:hover,
+.buy_visa_in:hover,
+.buy_brao_installment:hover
+{
+	border:5px solid #ED1C24;
+}
+.buyvisa_button
+{
+	border:none;
+	background:url(../images/sprite.png);
+	background-position:0 -394px;
+	background-repeat:no-repeat;
+	width:146px;
+	height:32px;
+}
+.buyvisa_button:hover
+{
+	background:url(../images/sprite.png);
+	background-position:0 -426px;
+	background-repeat:no-repeat;
+}
+.buybrao_button
+{
+	border:none;
+	background:url(../images/sprite.png);
+	background-position:0 -458px;
+	background-repeat:no-repeat;
+	width:168px;
+	height:32px;
+}
+.buybrao_button:hover
+{
+	background:url(../images/sprite.png);
+	background-position:0 -490px;
+	background-repeat:no-repeat;
+}
+.buyinstal_button
+{
+	border:none;
+	background:url(../images/sprite.png);
+	background-position:0 -522px;
+	background-repeat:no-repeat;
+	width:171px;
+	height:32px;
+}
+.buyinstal_button_disable
+{
+	border:none;
+	background:url(../images/sprite.png);
+	background-position:0 -522px;
+	background-repeat:no-repeat;
+	width:171px;
+	height:32px;
+	cursor:auto;
+}
+.buyinstal_button:hover
+{
+	background:url(../images/sprite.png);
+	background-position:0 -554px;
+	background-repeat:no-repeat;
+}
+.deal_buy_buttons
+{
+	padding:10px 0;
+	text-align:center;
+	background:#D4D4D5;
+	height: 32px;
+}
+.deal_buy_button_loader
+{
+	padding:10px 0;
+	text-align:center;
+	background:#D4D4D5;
+	height: 32px;
+	display: none;
+}
+.deal_buy_infos
+{
+	height:140px;
+}
+.buy_brao_installment_in
+{
+	text-align:center;
+	padding-top:54px;
+}
+.buy_brao_id
+{
+	padding:26px 0 18px;
+	text-align:center;
+}
+.buy_brao_id1
+{
+	padding-bottom:40px;
+	text-align:center;
+}
+.buy_brao_user_id,
+.buy_brao_balance
+{
+	font-size:16px;
+}
+.buy_brao_user_idnumber,
+.buy_brao_user_balancnumber
+{
+	font-size:16px;
+	color:#ED1C24;
+	font-weight:bold;
+	padding-left:5px;
+}
+.deab_buy_card
+{
+	padding:25px 0 0 15px;
+}
+.deab_buy_card img
+{
+	padding-bottom:14px;
+}
+/*end buy*/
+/*start transaction*/
+.trans_title_number
+{
+	float:left;
+	width:30%;
+	font-weight:bold;
+}
+.trans_title_type
+{
+	float:left;
+	width:20%;
+	font-weight:bold;
+}
+.trans_title_price
+{
+	float:left;
+	width:15%;
+	font-weight:bold;
+}
+.trans_title_status
+{
+	float:left;
+	width:20%;
+	font-weight:bold;
+}
+.trans_title_date
+{
+	float:left;
+	width:15%;
+	font-weight:bold;
+}
+.trans_titles
+{
+	padding-bottom:5px;
+}
+.transaction
+{
+	padding:5px 0;
+	border-top:1px dashed #CCCCCC;
+}
+.transaction_number
+{
+	float:left;
+	width:30%;
+}
+.transaction_type
+{
+	float:left;
+	width:20%;
+}
+.transaction_amount
+{
+	float:left;
+	width:15%;
+}
+.transaction_status img
+{
+	margin-left:20px;
+}
+.transaction_status
+{
+	float:left;
+	width:20%;
+}
+.transaction_date
+{
+	float:left;
+	width:15%;
+	font-size:11px;
+}
+/*end transaction*/
+/*start */
+.installment_items
+{
+	padding:5px 40px;
+}
+.installment_label
+{
+	float:left;
+	width:38%;
+	text-align:right;
+	font-weight:bold;
+}
+.installment_label label
+{
+	padding:8px 5px 0 0;
+	display:block;
+}
+.installment_input
+{
+	float:left;
+	width:62%;
+}
+.installment_input fieldset
+{
+	margin-top:7px;
+}
+.installment_input fieldset input
+{
+	margin-right:3px;
+}
+.installment_input fieldset label
+{
+	margin-right:10px;
+}
+.ins_field
+{
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+    height: 16px;
+    padding: 10px;
+    width: 273px;
+}
+.ins_field:hover,
+.installment_input textarea:hover,
+.installment_input input
+{
+	background:#F6F6F6;
+}
+.installment_button_save
+{
+	padding:10px 0 0 582px;
+}
+.installment_input textarea
+{
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+    padding: 2px;
+    width: 289px;
+}
+
+.installment_input input
+{
+    border: 1px solid #CCCCCC;
+    font-size: 11px;
+    padding: 2px;
+    width: 289px;
+}
+
+/*end */
+#___plusone_0 {
+	width: 60px !important;
+}
+
+.price_dan span {
+    color: #F08818;
+    font-size: 16px;
+}
+
+#deals_paymethods_preload {
+	margin: 15px auto;
+	text-align: center;
+	height: 232px;
+}
+
+.category_filter {
+	float: right;
+	margin-top: -26px;
+	margin-right: 12px;
+	font-size: 14px;
+	font-weight: normal;
+	font-family: Arial, Sylfaen, Helvetica, sans-serif;
+}
+
+#images_prev {
+    background: url("../images/icons/image_prev.png") no-repeat scroll center center transparent;
+    display: block;
+    height: 56px;
+    left: 169px;
+    position: absolute;
+    top: 62%;
+    width: 56px;
+    z-index: 7777;
+}
+
+#images_next {
+    background: url("../images/icons/image_next.png") no-repeat scroll center center transparent;
+    display: block;
+    height: 56px;
+    position: absolute;
+    right: 512px;
+    top: 62%;
+    width: 56px;
+    z-index: 7777;
+}
+#deal_bimgs_in {
+	width: 582px;
+	height: 330px;
+	position: relative;
+}
+
+.rdeal
+{
+	width:319px;
+	height:410px;
+	position: relative;
+	margin-bottom: 6px;
+}
+
+.rdeal_in
+{
+	/*margin-left:21px;*/
+	border:5px solid #ECECEC;
+	height:400px;
+}
+.rdeal_in:hover
+{
+	border:5px solid #ED1C24;
+}
+.rdeal_in1
+{
+	padding:0 10px;
+}
+
+.deal_company_map {
+	height:350px;
+	margin-bottom: 20px;
+}
+.related_deals_title
+{
+	font-size:20px;
+	font-family: "BPGNinoMtavruli";
+	font-weight:bold;
+	text-align: center;
+	padding-bottom:4px;
+	color:#3B5999;
+}
+
+
+.deal_new_installment
+{
+	position:absolute;
+	bottom:60px;
+	right:0px;
+	width:105px;
+	height:40px;
+	background:url(../images/new_price.png);
+	background-position:center;
+	background-repeat:no-repeat;
+	color:#FFFFFF;
+	line-height:40px;
+	font-size:20px;
+}
+
+
+.deal_buy1 button
+{
+	display:block;
+	background:url(../images/buy1.png);
+	background-repeat:no-repeat;
+	background-position:0;
+	width:70px;
+	height:33px;
+	cursor:pointer;
+	border:none;
+}
+
+.deal_buy2 button
+{
+	display:block;
+	background:url(../images/buy2.png);
+	background-repeat:no-repeat;
+	background-position:0;
+	width:200px;
+	height:33px;
+	cursor:pointer;
+	border:none;
+}
+
+.deal_buy3 button
+{
+	display:block;
+	background:url(../images/buy3.png);
+	background-repeat:no-repeat;
+	background-position:0;
+	width:200px;
+	height:33px;
+	cursor:pointer;
+	border:none;
+}
+

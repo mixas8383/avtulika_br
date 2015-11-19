@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="2.5">
+	<name>PKG_JOOMLA</name>
+	<packagename>joomla</packagename>
+	<version>2.5.0</version>
+	<description>PKG_JOOMLA_XML_DESCRIPTION</description>
+	<creationDate>2006</creationDate>
+	<copyright>(C) 2008 - 2013 LongCMS Team. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<author>LongCMS Project</author>
+	<authorEmail>akalongman@gmail.com</authorEmail>
+	<authorUrl>http://www.joomla.org</authorUrl>
+	<packager>Joomla!</packager>
+	<packagerurl>http://www.joomla.org</packagerurl>
+	<update>http://update.joomla.org/packages/joomla</update>
+	<files />
+</extension>

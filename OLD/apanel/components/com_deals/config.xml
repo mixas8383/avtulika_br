@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset name="component"
+		label="COM_DEALS_FIELDSET_CONFIG_COMPONENT_LABEL"
+		description="COM_DEALS_FIELDSET_CONFIG_COMPONENT_DESC">
+
+
+		<field name="receiver_mail" type="text"
+			description="COM_DEALS_FIELD_CONFIG_MAIL2_DESC"
+			label="COM_DEALS_FIELD_CONFIG_MAIL2_LABEL"
+			required="true"
+			validate="email"
+			size="30"
+		/>
+
+		<field name="installment_mail" type="text"
+			description="COM_DEALS_FIELD_CONFIG_MAIL3_DESC"
+			label="COM_DEALS_FIELD_CONFIG_MAIL3_LABEL"
+			required="true"
+			validate="email"
+			size="30"
+		/>
+		<field name="requestdeal_mail" type="text"
+			description="COM_DEALS_FIELD_CONFIG_MAIL4_DESC"
+			label="COM_DEALS_FIELD_CONFIG_MAIL4_LABEL"
+			required="true"
+			validate="email"
+			size="30"
+		/>
+
+
+	</fieldset>
+	<fieldset name="texts"
+		label="COM_DEALS_FIELDSET_CONFIG_TEXTS_LABEL"
+		description="COM_DEALS_FIELDSET_CONFIG_TEXTS_DESC">
+
+
+		<field name="requestdeal_text" type="editor" class="inputbox" width="80%" height="400"
+			label="COM_DEALS_FIELD_REQUESTDEAL_TEXT_LABEL"
+			description="COM_DEALS_FIELD_REQUESTDEAL_TEXT_DESC"
+			filter="JComponentHelper::filterText" buttons="true" hide="pagebreak,readmore,article" required="false" />
+
+		<field name="installment_description" type="editor" class="inputbox" width="80%" height="400"
+			label="COM_DEALS_FIELD_INSTALLMENT_DESCRIPTION_LABEL"
+			description="COM_DEALS_FIELD_INSTALLMENT_DESCRIPTION_DESC"
+			filter="JComponentHelper::filterText" buttons="true" hide="pagebreak,readmore,article" required="false" />
+
+
+	</fieldset>
+	<fieldset
+		name="permissions"
+		label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC"
+		>
+
+		<field
+			name="rules"
+			type="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			class="inputbox"
+			filter="rules"
+			validate="rules"
+			component="com_deals"
+			section="component" />
+	</fieldset>
+
+</config>

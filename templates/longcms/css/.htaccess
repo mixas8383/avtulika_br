@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /templates/longcms/css/
+
+RewriteRule .* - [E=HTTP_IF_MODIFIED_SINCE:%{HTTP:If-Modified-Since}]
+RewriteRule .* - [E=HTTP_IF_NONE_MATCH:%{HTTP:If-None-Match}]
+RewriteRule style.css loader.php

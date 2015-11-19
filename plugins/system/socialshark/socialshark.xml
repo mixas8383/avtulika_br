@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system">
+	<name>plg_system_socialshark</name>
+	<author>LongCMS Project</author>
+	<creationDate>December 2006</creationDate>
+	<copyright>(C) 2008 - 2013 LongCMS Team. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>akalongman@gmail.com</authorEmail>
+	<authorUrl>www.long.ge</authorUrl>
+	<version>2.5.0</version>
+	<description>PLG_SOCIALSHARK_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="socialshark">socialshark.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_system_socialshark.ini</language>
+		<language tag="en-GB">en-GB.plg_system_socialshark.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+
+                <field name="fb_pixel_id" type="text"
+                    cols="30"
+                    description="PLG_SOCIALSHARK_FIELD_FB_PIXEL_ID_DESC"
+                    label="PLG_SOCIALSHARK_FIELD_FB_PIXEL_ID_LABEL"
+                    size="40"
+                />
+			</fieldset>
+
+		</fields>
+	</config>
+</extension>

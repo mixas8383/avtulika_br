@@ -1,0 +1,128 @@
+.pagination ul
+{
+	margin:10px auto;
+	display:table;
+}
+.pagination li
+{
+	list-style:none;
+	float:left;
+	width:auto;
+	margin:0 3px;
+}
+.pagination li span.pagenav
+{
+	color:#6078AC;
+}
+.pagination li a.pagenav:hover,
+.pagination li span.pagenav
+{
+	background:url(../images/pagination.png);
+	background-position:-103px 0;
+	background-repeat:no-repeat;
+	width:30px;
+	height:30px;
+	display:block;
+	line-height:29px;
+	text-align:center;
+	font-weight:bold;
+	color:#FFFFFF;
+	text-decoration:none;
+}
+.pagination li a.pagenav
+{
+	background:url(../images/pagination.png);
+	background-position:-63px 0;
+	background-repeat:no-repeat;
+	width:30px;
+	height:30px;
+	display:block;
+	line-height:29px;
+	text-align:center;
+	font-weight:bold;
+	color:#000000;
+}
+li.pagination-prev span.pagenav,
+li.pagination-prev a.pagenav
+{
+	background:url(../images/pagination.png);
+	background-position:-25px 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}
+li.pagination-start span.pagenav,
+li.pagination-start a.pagenav
+{
+	background:url(../images/pagination.png);
+	background-position:-224px 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}
+li.pagination-prev a.pagenav:hover
+{
+	background:url(../images/pagination.png);
+	background-position:0 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}
+li.pagination-start a.pagenav:hover
+{
+	background:url(../images/pagination.png);
+	background-position:-252px 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}
+li.pagination-next span.pagenav,
+li.pagination-next a.pagenav
+{
+	background:url(../images/pagination.png);
+	background-position:-139px 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}
+li.pagination-end span.pagenav,
+li.pagination-end a.pagenav
+{
+	background:url(../images/pagination.png);
+	background-position:-195px 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}
+li.pagination-next a.pagenav:hover
+{
+	background:url(../images/pagination.png);
+	background-position:-168px 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}
+li.pagination-end a.pagenav:hover
+{
+	background:url(../images/pagination.png);
+	background-position:-278px 0;
+	background-repeat:no-repeat;
+	width:22px;
+	height:30px;
+	display:block;
+	font-size:0px;
+}

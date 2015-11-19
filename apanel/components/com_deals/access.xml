@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<access component="com_deals">
+	<section name="component">
+		<action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC" />
+		<action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
+		<action name="core.create" title="JACTION_CREATE" description="JACTION_CREATE_COMPONENT_DESC" />
+		<action name="core.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
+		<action name="core.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
+		<action name="core.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+		<action name="deals.deals.manage" title="Deals Manage" description="Categories Manage" />
+		<action name="deals.categories.manage" title="Categories Manage" description="Categories Manage" />
+		<action name="deals.companies.manage" title="Companies Manage" description="Companies Manage" />
+		<action name="deals.cities.manage" title="Cities Manage" description="Cities Manage" />
+		<action name="deals.transactions.manage" title="Transactions Manage" description="Transactions Manage" />
+		<action name="deals.liberty.manage" title="Liberty Manage" description="Liberty Manage" />
+		<action name="deals.users.manage" title="Users Manage" description="Users Manage" />
+	</section>
+</access>

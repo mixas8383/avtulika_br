@@ -1,0 +1,8 @@
+.tooltip {
+	display:none;
+	font-size:12px;
+}
+.tooltip span {
+	font-weight:bold;
+	font-size:13px;
+}

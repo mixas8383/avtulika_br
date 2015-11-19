@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="2.5"
+	client="site"
+	method="upgrade">
+	<name>mod_fb_fanbox</name>
+	<author>LongCMS Team</author>
+	<creationDate>Jenuary 2013</creationDate>
+	<copyright>(C) 2008 - 2013 LongCMS Team. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>akalongman@gmail.com</authorEmail>
+	<authorUrl>www.long.ge</authorUrl>
+	<version>2.5.0</version>
+	<description>MOD_FB_FANBOX_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_fb_fanbox">mod_fb_fanbox.php</filename>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<filename>mod_fb_fanbox.xml</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_fb_fanbox.ini</language>
+		<language tag="en-GB">en-GB.mod_fb_fanbox.sys.ini</language>
+	</languages>
+	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_MENU" />
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="href"
+					type="text"
+					default=""
+					size="50"
+					label="MOD_FB_FANBOX_FIELD_HREF_LABEL"
+					description="MOD_FB_FANBOX_FIELD_HREF_DESC" />
+
+				<field
+					name="width"
+					type="text"
+					default="292"
+					filter="intval"
+					label="MOD_FB_FANBOX_FIELD_WIDTH_LABEL"
+					description="MOD_FB_FANBOX_FIELD_WIDTH_DESC" />
+
+				<field
+					name="height"
+					type="text"
+					default=""
+					filter="intval"
+					label="MOD_FB_FANBOX_FIELD_HEIGHT_LABEL"
+					description="MOD_FB_FANBOX_FIELD_HEIGHT_DESC" />
+
+				<field
+					name="colorscheme"
+					type="radio"
+					label="MOD_FB_FANBOX_FIELD_COLORSCHEME_LABEL"
+					description="MOD_FB_FANBOX_FIELD_COLORSCHEME_DESC"
+					default="light">
+					<option
+						value="light">MOD_FB_FANBOX_FIELD_COLORSCHEME_LIGHT_LABEL</option>
+					<option
+						value="dark">MOD_FB_FANBOX_FIELD_COLORSCHEME_DARK_LABEL</option>
+				</field>
+
+				<field
+					name="show_faces"
+					type="radio"
+					label="MOD_FB_FANBOX_FIELD_SHOW_FACES_LABEL"
+					description="MOD_FB_FANBOX_FIELD_SHOW_FACES_DESC"
+					default="true">
+					<option
+						value="false">JNo</option>
+					<option
+						value="true">JYes</option>
+				</field>
+
+				<field
+					name="stream"
+					type="radio"
+					label="MOD_FB_FANBOX_FIELD_STREAM_LABEL"
+					description="MOD_FB_FANBOX_FIELD_STREAM_DESC"
+					default="false">
+					<option
+						value="false">JNo</option>
+					<option
+						value="true">JYes</option>
+				</field>
+
+				<field
+					name="border_color"
+					type="text"
+					default=""
+					label="MOD_FB_FANBOX_FIELD_BORDER_COLOR_LABEL"
+					description="MOD_FB_FANBOX_FIELD_BORDER_COLOR_DESC" />
+
+				<field
+					name="header"
+					type="radio"
+					label="MOD_FB_FANBOX_FIELD_HEADER_LABEL"
+					description="MOD_FB_FANBOX_FIELD_HEADER_DESC"
+					default="false">
+					<option
+						value="false">JNo</option>
+					<option
+						value="true">JYes</option>
+				</field>
+
+
+			</fieldset>
+			<fieldset
+				name="advanced">
+				<field
+					name="moduleclass_sfx"
+					type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+
+				<field
+					name="cache"
+					type="list"
+					default="1"
+					label="COM_MODULES_FIELD_CACHING_LABEL"
+					description="COM_MODULES_FIELD_CACHING_DESC">
+					<option
+						value="1">JGLOBAL_USE_GLOBAL</option>
+					<option
+						value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+				</field>
+
+				<field
+					name="cache_time"
+					type="text"
+					default="900"
+					label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+					description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+				<field
+					name="cachemode"
+					type="hidden"
+					default="static">
+					<option
+						value="static"></option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,128 @@
+.module_block
+{
+	padding-bottom:10px;
+}
+.article_title
+{
+	font-size:13px;
+	font-weight:bold;
+	padding-bottom:5px;
+}
+.page_title
+{
+    border-bottom: 1px solid #ED1C24;
+    color: #3B5999;
+    font-family: "BPGNinoMtavruli";
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 3px;
+}
+.page_title h1
+{
+	font-size:17px;
+	font-weight:bold;
+}
+.create_date
+{
+	text-align:right;
+	color:#CCCCCC;
+	padding-bottom:3px;
+	font-size:11px;
+}
+.socials
+{
+	float:left;
+	width:80%;
+}
+.socials span,
+.socials span a
+{
+	font-size:0px;
+}
+.socials span a img
+{
+	margin-right:5px;
+}
+.socials span a:hover img,
+.printemail_icon span a:hover img
+{
+	opacity:0.7;
+}
+.printemail_icon
+{
+	float:right;
+	text-align:right;
+	width:19%;
+}
+.article_socials
+{
+	padding:10px 0;
+}
+.printemail_icon span,
+.printemail_icon span a
+{
+	font-size:0px;
+}
+.printemail_icon span a img
+{
+	margin-left:5px;
+}
+.img-intro-left img
+{
+	margin:0 10px 0 0;
+}
+.items-leading,
+.column-1,
+.column-2
+{
+	padding-bottom:10px;
+	margin-bottom:10px;
+	border-bottom:1px dotted #CCCCCC;
+}
+.items-more ol
+{
+	margin:10px 40px;
+}
+.readmore
+{
+	text-align:right;
+	padding-top:5px;
+	font-size:11px;
+	font-weight:bold;
+}
+.article_image img
+{
+	margin:0 10px 3px 0;
+}
+.article_text,
+.article_text p,
+.article_text p span
+{
+	line-height:1.5em !important;
+}
+.article_text ol,
+.article_text ul
+{
+	margin:10px 40px;
+}
+.article_social span
+{
+	display:block;
+	float:right;
+	width:auto;
+}
+.article_social span,
+.article_social span a
+{
+	font-size:0px;
+}
+.article_social span img
+{
+	margin-left:5px;
+}
+
+.article_social span img
+{
+	margin:0 2px;
+}

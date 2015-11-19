@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="2.5.8" method="upgrade">
+<name>Lg-UserExport</name>
+<author>Logigroup</author>
+<version>1.1.0</version>
+<creationDate>24-12-2013</creationDate>
+<copyright>(C) 2013 Logigroup. All rights reserved.</copyright>
+<authorEmail>info@logigroup.ma</authorEmail>
+<authorUrl>www.logigroup.ma</authorUrl>
+<license> http://www.gnu.org/licenses GNU/GPL</license>
+<description>The Joomla export module allows the administrator to export in CSV format, all users except Joomla users belonging to the Super Users group. This CSV file has the following format :  Name, Login, Email, Group users, active, activated</description>
+
+
+
+<administration>
+		<menu img="components/com_lg-userexport/assets/export.png" link="option=com_lg-userexport" >COM_LG_USEREXPORT_MENU</menu>
+		
+                
+	<files folder="admin">
+		<filename>index.html</filename>
+		<filename>controller.php</filename>
+		<filename>lg-userexport.php</filename>
+		<folder>assets</folder>
+		<folder>views</folder>
+		<folder>controllers</folder>
+		<folder>language</folder>
+	</files>
+
+	<languages folder="admin">
+               <language tag="en-GB">language/en-GB.com_lg-userexport.ini</language>
+               <language tag="en-GB">language/en-GB.com_lg-userexport.sys.ini</language>
+               <language tag="fr-FR">language/fr-FR.com_lg-userexport.ini</language>
+               <language tag="fr-FR">language/fr-FR.com_lg-userexport.sys.ini</language>
+    </languages>
+
+</administration>
+
+
+</extension>

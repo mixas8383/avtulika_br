@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="lang_id" type="text"
+			class="readonly"
+			description="JGLOBAL_FIELD_ID_DESC"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			default="0"
+			readonly="true"
+		/>
+
+		<field name="lang_code" type="text"
+			class="inputbox"
+			description="COM_LANGUAGES_FIELD_LANG_TAG_DESC"
+			label="COM_LANGUAGES_FIELD_LANG_TAG_LABEL"
+			maxlength="7"
+			required="true"
+			size="10"
+		/>
+
+		<field name="title" type="text"
+			class="inputbox"
+			description="COM_LANGUAGES_FIELD_TITLE_DESC"
+			label="JGLOBAL_TITLE"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
+
+		<field name="title_native" type="text"
+			class="inputbox"
+			description="COM_LANGUAGES_FIELD_TITLE_NATIVE_DESC"
+			label="COM_LANGUAGES_FIELD_TITLE_NATIVE_LABEL"
+			maxlength="50"
+			required="true"
+			size="40"
+		/>
+
+		<field name="sef" type="text"
+			class="inputbox"
+			description="COM_LANGUAGES_FIELD_LANG_CODE_DESC"
+			label="COM_LANGUAGES_FIELD_LANG_CODE_LABEL"
+			maxlength="7"
+			required="true"
+			size="10"
+		/>
+
+		<field name="image" type="text"
+			class="inputbox"
+			description="COM_LANGUAGES_FIELD_IMAGE_DESC"
+			label="COM_LANGUAGES_FIELD_IMAGE_LABEL"
+			maxlength="7"
+			required="true"
+			size="10"
+		/>
+
+		<field name="description" type="textarea"
+			class="inputbox"
+			cols="80"
+			description="COM_LANGUAGES_FIELD_DESCRIPTION_DESC"
+			label="JGLOBAL_DESCRIPTION"
+			rows="5"
+		/>
+
+		<field name="published" type="list"
+			class="inputbox"
+			default="1"
+			description="COM_LANGUAGES_FIELD_PUBLISHED_DESC"
+			label="JSTATUS"
+			size="1"
+		>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+
+		<field name="access" type="accesslevel"
+		class="inputbox"
+		size="1"
+		label="JFIELD_ACCESS_LABEL"
+		description="JFIELD_ACCESS_DESC"
+		/>
+	</fieldset>
+	<fieldset name="metadata" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+		<field name="metakey" type="textarea"
+			class="inputbox"
+			description="JFIELD_META_KEYWORDS_DESC"
+			label="JFIELD_META_KEYWORDS_LABEL"
+			rows="3"
+			cols="30"
+		/>
+
+		<field name="metadesc" type="textarea"
+			class="inputbox"
+			description="JFIELD_META_DESCRIPTION_DESC"
+			label="JFIELD_META_DESCRIPTION_LABEL"
+			rows="3"
+			cols="30"
+		/>
+	</fieldset>
+	<fieldset name="site_name" label="COM_LANGUAGES_FIELDSET_SITE_NAME_LABEL">
+		<field name="sitename" type="text"
+			description="COM_LANGUAGES_FIELD_SITE_NAME_DESC"
+			label="COM_LANGUAGES_FIELD_SITE_NAME_LABEL"
+			filter="string"
+			size="50"
+		/>
+	</fieldset>
+
+	<fieldset name="og_metadata" label="COM_LANGUAGES_FIELDSET_OG_METADATA_LABEL">
+		<field name="og_title" type="text"
+			description="COM_LANGUAGES_FIELD_OG_TITLE_DESC"
+			label="COM_LANGUAGES_FIELD_OG_TITLE_LABEL"
+			filter="string"
+			size="50"
+		/>
+		<field name="og_type" type="list"
+			description="COM_LANGUAGES_FIELD_OG_TYPE_DESC"
+			label="COM_LANGUAGES_FIELD_OG_TYPE_LABEL"
+			filter="string"
+			size="1"
+			default="0"
+		>
+			<option value="0">COM_LANGUAGES_FIELD_OG_CHOSE</option>
+			<option value="activity">COM_LANGUAGES_FIELD_OG_ACTIVITY</option>
+			<option value="actor">COM_LANGUAGES_FIELD_OG_ACTOR</option>
+			<option value="album">COM_LANGUAGES_FIELD_OG_ALBUM</option>
+			<option value="article">COM_LANGUAGES_FIELD_OG_ARTICLE</option>
+			<option value="athlete">COM_LANGUAGES_FIELD_OG_ATHLETE</option>
+			<option value="author">COM_LANGUAGES_FIELD_OG_AUTHOR</option>
+			<option value="band">COM_LANGUAGES_FIELD_OG_BAND</option>
+			<option value="bar">COM_LANGUAGES_FIELD_OG_BAR</option>
+			<option value="blog">COM_LANGUAGES_FIELD_OG_BLOG</option>
+			<option value="book">COM_LANGUAGES_FIELD_OG_BOOK</option>
+			<option value="cafe">COM_LANGUAGES_FIELD_OG_CAFE</option>
+			<option value="cause">COM_LANGUAGES_FIELD_OG_CAUSE</option>
+			<option value="city">COM_LANGUAGES_FIELD_OG_CITY</option>
+			<option value="company">COM_LANGUAGES_FIELD_OG_COMPANY</option>
+			<option value="country">COM_LANGUAGES_FIELD_OG_COUNTRY</option>
+			<option value="director">COM_LANGUAGES_FIELD_OG_DIRECTOR</option>
+			<option value="drink">COM_LANGUAGES_FIELD_OG_DRINK</option>
+			<option value="food">COM_LANGUAGES_FIELD_OG_FOOD</option>
+			<option value="game">COM_LANGUAGES_FIELD_OG_GAME</option>
+			<option value="government">COM_LANGUAGES_FIELD_OG_GOVERNMENT</option>
+			<option value="hotel">COM_LANGUAGES_FIELD_OG_HOTEL</option>
+			<option value="landmark">COM_LANGUAGES_FIELD_OG_LANDMARK</option>
+			<option value="movie">COM_LANGUAGES_FIELD_OG_MOVIE</option>
+			<option value="musician">COM_LANGUAGES_FIELD_OG_MUSICIAN</option>
+			<option value="non_profit">COM_LANGUAGES_FIELD_OG_NON_PROFIT</option>
+			<option value="politician">COM_LANGUAGES_FIELD_OG_POLITICIAN</option>
+			<option value="product">COM_LANGUAGES_FIELD_OG_PRODUCT</option>
+			<option value="public_figure">COM_LANGUAGES_FIELD_OG_PUBLIC_FIGURE</option>
+			<option value="restaurant">COM_LANGUAGES_FIELD_OG_RESTAURANT</option>
+			<option value="school">COM_LANGUAGES_FIELD_OG_SCHOOL</option>
+			<option value="song">COM_LANGUAGES_FIELD_OG_SONG</option>
+			<option value="sport">COM_LANGUAGES_FIELD_OG_SPORT</option>
+			<option value="sports_league">COM_LANGUAGES_FIELD_OG_SPORTS_LEAGUE</option>
+			<option value="sports_team">COM_LANGUAGES_FIELD_OG_SPORTS_TEAM</option>
+			<option value="state_province">COM_LANGUAGES_FIELD_OG_STATE_PROVINCE</option>
+			<option value="tv_show">COM_LANGUAGES_FIELD_OG_TV_SHOW</option>
+			<option value="university">COM_LANGUAGES_FIELD_OG_UNIVERSITY</option>
+			<option value="website">COM_LANGUAGES_FIELD_OG_WEBSITE</option>
+		</field>
+
+		<field
+			name="og_image"
+			type="media"
+			label="COM_LANGUAGES_FIELD_OG_IMAGE_LABEL"
+			description="COM_LANGUAGES_FIELD_OG_IMAGE_DESC" />
+
+		<field name="og_url" type="text"
+			description="COM_LANGUAGES_FIELD_OG_URL_DESC"
+			label="COM_LANGUAGES_FIELD_OG_URL_LABEL"
+			filter="string"
+			size="50"
+		/>
+		<field name="og_site_name" type="text"
+			description="COM_LANGUAGES_FIELD_OG_SITE_NAME_DESC"
+			label="COM_LANGUAGES_FIELD_OG_SITE_NAME_LABEL"
+			filter="string"
+			size="50"
+		/>
+		<field name="og_description" type="textarea"
+			class="inputbox"
+			description="COM_LANGUAGES_FIELD_OG_DESCRIPTION_DESC"
+			label="COM_LANGUAGES_FIELD_OG_DESCRIPTION_LABEL"
+			rows="3"
+			cols="30"
+		/>
+
+
+
+
+
+
+
+	</fieldset>
+
+
+
+</form>

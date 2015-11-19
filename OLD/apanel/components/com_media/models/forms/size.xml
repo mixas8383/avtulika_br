@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="details"
+		addfieldpath="/JFOLDER_ADMINISTRATOR/components/com_media/models/fields"
+	>
+		<field name="id" type="text" default="0"
+			readonly="true" class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC" />
+
+		<field name="title" type="title" class="inputbox"
+			size="60" label="COM_MEDIA_SIZE_FIELD_TITLE_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_TITLE_DESC" required="true" />
+
+
+		<field name="codename" type="codename" class="inputbox"
+			size="1" label="COM_MEDIA_SIZE_FIELD_CODENAME_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_CODENAME_DESC" required="true" />
+
+		<field name="width" type="text" class="inputbox"
+			size="10" label="COM_MEDIA_SIZE_FIELD_WIDTH_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_WIDTH_DESC" required="true" />
+
+		<field name="height" type="text" class="inputbox"
+			size="10" label="COM_MEDIA_SIZE_FIELD_HEIGHT_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_HEIGHT_DESC" required="true" />
+
+		<field name="imgedit" type="imgedit" class="inputbox"
+			size="1" label="COM_MEDIA_SIZE_FIELD_IMGEDIT_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_IMGEDIT_DESC" required="true" />
+
+		<field
+			name="watermark"
+			type="list"
+			default="-1"
+			label="COM_MEDIA_SIZE_FIELD_WATERMARK_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_WATERMARK_DESC"
+			filter="integer">
+			<option
+				value="-1">JGLOBAL_USE_GLOBAL</option>
+			<option
+				value="1">JYES</option>
+			<option
+				value="0">JNO</option>
+		</field>
+
+
+		<field name="quality" type="quality" class="inputbox"
+			size="1" default="80" label="COM_MEDIA_SIZE_FIELD_QUALITY_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_QUALITY_DESC" required="true" />
+
+		<field
+			name="ineditor"
+			type="radio"
+			default="0"
+			label="COM_MEDIA_SIZE_FIELD_INEDITOR_LABEL"
+			description="COM_MEDIA_SIZE_FIELD_INEDITOR_DESC"
+			filter="integer">
+			<option
+				value="1">JYES</option>
+			<option
+				value="0">JNO</option>
+		</field>
+
+
+	</fieldset>
+
+
+</form>

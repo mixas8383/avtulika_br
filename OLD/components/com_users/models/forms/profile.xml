@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="core">
+
+		<field name="id" type="hidden"
+			filter="integer"
+		/>
+
+
+		<field name="email1" type="text" readonly="true" class="readonly"
+			description="COM_USERS_PROFILE_EMAIL1_DESC"
+			label="COM_USERS_PROFILE_EMAIL1_LABEL"
+		/>
+
+		<field name="persNumber" type="text" readonly="true" class="readonly"
+			description="COM_USERS_PROFILE_PERSNUMBER_DESC"
+			label="COM_USERS_PROFILE_PERSNUMBER_LABEL"
+		/>
+
+		<field name="name" type="text"
+			description="COM_USERS_PROFILE_NAME_DESC"
+			filter="string"
+			label="COM_USERS_PROFILE_NAME_LABEL"
+			message="COM_USERS_PROFILE_NAME_MESSAGE"
+			required="true"
+			size="30"
+		/>
+
+		<field name="surname" type="text"
+			description="COM_USERS_PROFILE_SURNAME_DESC"
+			filter="string"
+			label="COM_USERS_PROFILE_SURNAME_LABEL"
+			message="COM_USERS_PROFILE_SURNAME_MESSAGE"
+			required="true"
+			size="30"
+		/>
+
+		<field name="mobile" type="text"
+			description="COM_USERS_REGISTER_MOBILE_DESC"
+			filter="string"
+			label="COM_USERS_REGISTER_MOBILE_LABEL"
+			message="COM_USERS_REGISTER_MOBILE_MESSAGE"
+			required="true"
+			size="30"
+		/>
+
+
+		<field name="password1" type="password"
+			autocomplete="off"
+			class="validate-password"
+			description="COM_USERS_DESIRED_PASSWORD"
+			field="password2"
+			filter="raw"
+			label="COM_USERS_PROFILE_PASSWORD1_LABEL"
+			message="COM_USERS_PROFILE_PASSWORD1_MESSAGE"
+			size="30"
+			validate="equals"
+		/>
+
+		<field name="password2" type="password"
+			autocomplete="off"
+			class="validate-password"
+			description="COM_USERS_PROFILE_PASSWORD2_DESC"
+			filter="raw"
+			label="COM_USERS_PROFILE_PASSWORD2_LABEL"
+			message="COM_USERS_PROFILE_PASSWORD2_MESSAGE"
+			size="30"
+		/>
+
+		<field
+			name="mail_subscribed"
+			type="radio"
+			default="1"
+			label="COM_USERS_PROFILE_SUBSCRIBE_LABEL"
+			description="COM_USERS_PROFILE_SUBSCRIBE_DESC"
+			filter="integer">
+			<option
+				value="0">JNO</option>
+			<option
+				value="1">JYES</option>
+		</field>
+
+	</fieldset>
+</form>
