@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/components/com_users/models/rules">
+	<fieldset name="default"
+		label="COM_USERS_REGISTRATION_DEFAULT_LABEL"
+	>
+
+
+		<field name="email" type="email"
+			description="COM_USERS_REGISTER_EMAIL_DESC"
+			filter="string"
+			label="COM_USERS_REGISTER_EMAIL_LABEL"
+			message="COM_USERS_REGISTER_EMAIL_MESSAGE"
+			required="true"
+			size="30"
+			validate="email"
+		/>
+
+
+		<field name="name" type="text"
+			description="COM_USERS_REGISTER_NAME_DESC"
+			filter="string"
+			label="COM_USERS_REGISTER_NAME_LABEL"
+			message="COM_USERS_REGISTER_NAME_MESSAGE"
+			required="true"
+			size="30"
+		/>
+
+		<field name="surname" type="text"
+			description="COM_USERS_REGISTER_SURNAME_DESC"
+			filter="string"
+			label="COM_USERS_REGISTER_SURNAME_LABEL"
+			message="COM_USERS_REGISTER_SURNAME_MESSAGE"
+			required="true"
+			size="30"
+		/>
+
+		<field name="persNumber" type="text"
+			description="COM_USERS_REGISTER_PERSNUMBER_DESC"
+			filter="string"
+			label="COM_USERS_REGISTER_PERSNUMBER_LABEL"
+			message="COM_USERS_REGISTER_PERSNUMBER_MESSAGE"
+			required="true"
+			unique="true"
+			size="30"
+			validate="persNumber"
+		/>
+
+		<field name="mobile" type="text"
+			description="COM_USERS_REGISTER_MOBILE_DESC"
+			filter="string"
+			label="COM_USERS_REGISTER_MOBILE_LABEL"
+			message="COM_USERS_REGISTER_MOBILE_MESSAGE"
+			required="true"
+			size="30"
+		/>
+
+
+		<field name="password1" type="password"
+			autocomplete="off"
+			class="validate-password"
+			description="COM_USERS_DESIRED_PASSWORD"
+			field="password2"
+			filter="raw"
+			label="COM_USERS_REGISTER_PASSWORD1_LABEL"
+			message="COM_USERS_REGISTER_PASSWORD1_MESSAGE"
+			required="true"
+			size="30"
+			validate="equals"
+		/>
+
+		<field name="password2" type="password"
+			autocomplete="off"
+			class="validate-password"
+			description="COM_USERS_REGISTER_PASSWORD2_DESC"
+			filter="raw"
+			label="COM_USERS_REGISTER_PASSWORD2_LABEL"
+			message="COM_USERS_REGISTER_PASSWORD2_MESSAGE"
+			required="true"
+			size="30"
+		/>
+
+		<field
+			name="captcha"
+			type="captcha"
+			label="COM_USERS_CAPTCHA_LABEL"
+			description="COM_USERS_CAPTCHA_DESC"
+			validate="captcha"
+		/>
+	</fieldset>
+</form>
