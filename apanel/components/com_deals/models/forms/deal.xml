@@ -1,178 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset name="details"
-		addfieldpath="/JFOLDER_ADMINISTRATOR/components/com_deals/models/fields"
-	>
+    <fieldset name="details"
+              addfieldpath="/JFOLDER_ADMINISTRATOR/components/com_deals/models/fields"
+    >
 
-		<field name="title" type="textarea" class="inputbox deal_title"
-			rows="3" cols="50" label="COM_DEALS_FIELD_TITLE_LABEL"
-			description="COM_DEALS_FIELD_TITLE_DESC" required="true" />
+        <field name="title" type="textarea" class="inputbox deal_title"
+               rows="3" cols="50" label="COM_DEALS_FIELD_TITLE_LABEL"
+               description="COM_DEALS_FIELD_TITLE_DESC" required="true" />
 
-		<field name="text" type="editor" class="inputbox"
-			label="COM_DEALS_FIELD_TEXT_LABEL"
-			description="COM_DEALS_FIELD_TEXT_DESC"
-			filter="JComponentHelper::filterText" buttons="true" hide="pagebreak,readmore,article,image" required="true" />
+        <field name="text" type="editor" class="inputbox"
+               label="COM_DEALS_FIELD_TEXT_LABEL"
+               description="COM_DEALS_FIELD_TEXT_DESC"
+               filter="JComponentHelper::filterText" buttons="true" hide="pagebreak,readmore,article,image" required="true" />
 
-		<field name="description" type="editor" class="inputbox"
-			label="COM_DEALS_FIELD_DESCRIPTION_LABEL"
-			description="COM_DEALS_FIELD_DESCRIPTION_DESC"
-			filter="JComponentHelper::filterText" buttons="true" hide="pagebreak,readmore,article,image" required="true" />
-
-
-		<field name="category_id" type="category" class="inputbox"
-			label="COM_DEALS_FIELD_CATEGORY_LABEL"
-			description="COM_DEALS_FIELD_CATEGORY_DESC" required="true" />
-
-		<field name="company_id" type="company" class="inputbox"
-			label="COM_DEALS_FIELD_COMPANY_LABEL"
-			description="COM_DEALS_FIELD_COMPANY_DESC" required="true" />
-
-		<field name="city_id" type="city" class="inputbox"
-			label="COM_DEALS_FIELD_CITY_LABEL"
-			description="COM_DEALS_FIELD_CITY_DESC" required="true" />
+        <field name="description" type="editor" class="inputbox"
+               label="COM_DEALS_FIELD_DESCRIPTION_LABEL"
+               description="COM_DEALS_FIELD_DESCRIPTION_DESC"
+               filter="JComponentHelper::filterText" buttons="true" hide="pagebreak,readmore,article,image" required="true" />
 
 
-		<field name="checked_out" type="hidden" filter="unset" />
+        <field name="category_id" type="category" class="inputbox"
+               label="COM_DEALS_FIELD_CATEGORY_LABEL"
+               description="COM_DEALS_FIELD_CATEGORY_DESC" required="true" />
 
-		<field name="checked_out_time" type="hidden" filter="unset" />
+        <field name="company_id" type="company" class="inputbox"
+               label="COM_DEALS_FIELD_COMPANY_LABEL"
+               description="COM_DEALS_FIELD_COMPANY_DESC" required="true" />
 
-	</fieldset>
-
-	<fieldset name="publish"
-		label="COM_DEALS_GROUP_LABEL_PUBLISHING_DETAILS"
-	>
-		<field name="is_market" type="radio"
-			label="JFIELD_ISMARKET_LABEL" description="JFIELD_ISMARKET_DESC"
-			class="inputbox" filter="intval" default="0" >
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-
-		<field name="price" type="text" class="inputbox"
-			size="10" label="JFIELD_PRICE_LABEL"
-			description="JFIELD_PRICE_DESC" />
-
-		<field name="old_price" type="text" class="inputbox"
-			size="10" label="JFIELD_OLD_PRICE_LABEL"
-			description="JFIELD_OLD_PRICE_DESC" />
-
-		<field name="saving" type="text" class="inputbox"
-			size="10" label="JFIELD_SAVING_LABEL"
-			description="JFIELD_SAVING_DESC" />
-
-		<field name="discount" type="text" class="inputbox"
-			size="10" label="JFIELD_DISCOUNT_LABEL"
-			description="JFIELD_DISCOUNT_DESC" />
-
-		<field name="comission" type="text" class="inputbox"
-			size="10" label="JFIELD_COMISSION_LABEL"
-			description="JFIELD_COMISSION_DESC" />
-
-		<field name="quantity" type="text" class="inputbox"
-			size="10" label="JFIELD_QUANTITY_LABEL"
-			description="JFIELD_QUANTITY_DESC" />
-
-		<field name="installment" type="radio"
-			label="JFIELD_INSTALLMENT_LABEL" description="JFIELD_INSTALLMENT_DESC"
-			class="inputbox" filter="intval" default="0" >
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
-
-		<field name="monthly" type="text" class="inputbox"
-			size="10" label="JFIELD_MONTHLY_LABEL"
-			description="JFIELD_MONTHLY_DESC" />
+        <field name="city_id" type="city" class="inputbox"
+               label="COM_DEALS_FIELD_CITY_LABEL"
+               description="COM_DEALS_FIELD_CITY_DESC" required="true" />
 
 
-		<field name="state" type="list"
-			label="COM_DEALS_FIELD_STATE_LABEL" description="COM_DEALS_FIELD_STATE_DESC"
-			class="inputbox" filter="intval" size="1" default="1" >
-			<option value="1">JPUBLISHED</option>
-			<option value="0">JUNPUBLISHED</option>
-			<option value="2">JARCHIVED</option>
-			<option value="-2">JTRASHED</option>
-		</field>
+        <field name="checked_out" type="hidden" filter="unset" />
 
-		<field name="publish_up" type="calendar"
-			label="COM_DEALS_FIELD_PUBLISH_UP_LABEL" description="COM_DEALS_FIELD_PUBLISH_UP_DESC"
-			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
-			filter="user_utc" />
+        <field name="checked_out_time" type="hidden" filter="unset" />
 
-		<field name="publish_down" type="calendar"
-			label="COM_DEALS_FIELD_PUBLISH_DOWN_LABEL" description="COM_DEALS_FIELD_PUBLISH_DOWN_DESC"
-			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
-			filter="user_utc" />
+    </fieldset>
 
-		<field name="hits" type="text" label="JGLOBAL_HITS"
-			description="COM_DEALS_FIELD_HITS_DESC" class="readonly" size="6"
-			readonly="true" filter="unset" />
+    <fieldset name="publish"
+              label="COM_DEALS_GROUP_LABEL_PUBLISHING_DETAILS"
+    >
+        <field name="is_market" type="radio"
+               label="JFIELD_ISMARKET_LABEL" description="JFIELD_ISMARKET_DESC"
+               class="inputbox" filter="intval" default="0" >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
 
-		<field name="id" type="text" default="0"
-			readonly="true" class="readonly"
-			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC" />
+        <field name="price" type="text" class="inputbox"
+               size="10" label="JFIELD_PRICE_LABEL"
+               description="JFIELD_PRICE_DESC" />
 
-	</fieldset>
+        <field name="old_price" type="text" class="inputbox"
+               size="10" label="JFIELD_OLD_PRICE_LABEL"
+               description="JFIELD_OLD_PRICE_DESC" />
 
-	<fieldset name="images"
-		label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
-		>
+        <field name="saving" type="text" class="inputbox"
+               size="10" label="JFIELD_SAVING_LABEL"
+               description="JFIELD_SAVING_DESC" />
 
-		<field name="image1" type="media" directory="deals" preview="show"
-			hide_none="1" label="COM_DEALS_FIELD_IMAGE1_LABEL"
-			size="30"
-			description="COM_DEALS_FIELD_IMAGE1_DESC" />
+        <field name="discount" type="text" class="inputbox"
+               size="10" label="JFIELD_DISCOUNT_LABEL"
+               description="JFIELD_DISCOUNT_DESC" />
 
-		<field name="image2" type="media" directory="deals" preview="show"
-			hide_none="1" label="COM_DEALS_FIELD_IMAGE2_LABEL"
-			size="30"
-			description="COM_DEALS_FIELD_IMAGE2_DESC" />
+        <field name="comission" type="text" class="inputbox"
+               size="10" label="JFIELD_COMISSION_LABEL"
+               description="JFIELD_COMISSION_DESC" />
 
-		<field name="image3" type="media" directory="deals" preview="show"
-			hide_none="1" label="COM_DEALS_FIELD_IMAGE3_LABEL"
-			size="30"
-			description="COM_DEALS_FIELD_IMAGE3_DESC" />
+        <field name="quantity" type="text" class="inputbox"
+               size="10" label="JFIELD_QUANTITY_LABEL"
+               description="JFIELD_QUANTITY_DESC" />
 
-		<field name="image4" type="media" directory="deals" preview="show"
-			hide_none="1" label="COM_DEALS_FIELD_IMAGE4_LABEL"
-			size="30"
-			description="COM_DEALS_FIELD_IMAGE4_DESC" />
+        <field name="installment" type="radio"
+               label="JFIELD_INSTALLMENT_LABEL" description="JFIELD_INSTALLMENT_DESC"
+               class="inputbox" filter="intval" default="0" >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
 
-		<field name="image5" type="media" directory="deals" preview="show"
-			hide_none="1" label="COM_DEALS_FIELD_IMAGE5_LABEL"
-			size="30"
-			description="COM_DEALS_FIELD_IMAGE5_DESC" />
-
-		<field name="video" type="text" class="inputbox"
-			size="50" label="COM_DEALS_FIELD_VIDEO_LABEL"
-			description="COM_DEALS_FIELD_VIDEO_DESC" />
+        <field name="monthly" type="text" class="inputbox"
+               size="10" label="JFIELD_MONTHLY_LABEL"
+               description="JFIELD_MONTHLY_DESC" />
 
 
-	</fieldset>
+        <field name="state" type="list"
+               label="COM_DEALS_FIELD_STATE_LABEL" description="COM_DEALS_FIELD_STATE_DESC"
+               class="inputbox" filter="intval" size="1" default="1" >
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+            <option value="2">JARCHIVED</option>
+            <option value="-2">JTRASHED</option>
+        </field>
+
+        <field name="publish_up" type="calendar"
+               label="COM_DEALS_FIELD_PUBLISH_UP_LABEL" description="COM_DEALS_FIELD_PUBLISH_UP_DESC"
+               class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+               filter="user_utc" />
+
+        <field name="publish_down" type="calendar"
+               label="COM_DEALS_FIELD_PUBLISH_DOWN_LABEL" description="COM_DEALS_FIELD_PUBLISH_DOWN_DESC"
+               class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+               filter="user_utc" />
+
+        <field name="hits" type="text" label="JGLOBAL_HITS"
+               description="COM_DEALS_FIELD_HITS_DESC" class="readonly" size="6"
+               readonly="true" filter="unset" />
+
+        <field name="id" type="text" default="0"
+               readonly="true" class="readonly"
+               label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC" />
+        <field name="allow_bot" type="radio"
+               label="Allow bot" description="Allow bot"
+               class="inputbox" filter="intval" default="0" >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field name="bot_count" type="text" class="inputbox"
+               size="10" default="5" label="Bot count on the deal"
+               description="Bot max bit" />
+        <field name="bot_max_bit" type="text" class="inputbox"
+               size="10" label="Bot max bit"
+               description="Bot max bit" />
+    </fieldset>
+
+    <fieldset name="images"
+              label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
+    >
+
+        <field name="image1" type="media" directory="deals" preview="show"
+               hide_none="1" label="COM_DEALS_FIELD_IMAGE1_LABEL"
+               size="30"
+               description="COM_DEALS_FIELD_IMAGE1_DESC" />
+
+        <field name="image2" type="media" directory="deals" preview="show"
+               hide_none="1" label="COM_DEALS_FIELD_IMAGE2_LABEL"
+               size="30"
+               description="COM_DEALS_FIELD_IMAGE2_DESC" />
+
+        <field name="image3" type="media" directory="deals" preview="show"
+               hide_none="1" label="COM_DEALS_FIELD_IMAGE3_LABEL"
+               size="30"
+               description="COM_DEALS_FIELD_IMAGE3_DESC" />
+
+        <field name="image4" type="media" directory="deals" preview="show"
+               hide_none="1" label="COM_DEALS_FIELD_IMAGE4_LABEL"
+               size="30"
+               description="COM_DEALS_FIELD_IMAGE4_DESC" />
+
+        <field name="image5" type="media" directory="deals" preview="show"
+               hide_none="1" label="COM_DEALS_FIELD_IMAGE5_LABEL"
+               size="30"
+               description="COM_DEALS_FIELD_IMAGE5_DESC" />
+
+        <field name="video" type="text" class="inputbox"
+               size="50" label="COM_DEALS_FIELD_VIDEO_LABEL"
+               description="COM_DEALS_FIELD_VIDEO_DESC" />
+
+
+    </fieldset>
 
 
 
 
-	<fieldset name="metadata"
-		label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
-		>
+    <fieldset name="metadata"
+              label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
+    >
 
-		<field name="metakey" type="textarea" class="inputbox"
-			rows="3" cols="30" label="JFIELD_META_KEYWORDS_LABEL"
-			description="JFIELD_META_KEYWORDS_DESC" />
+        <field name="metakey" type="textarea" class="inputbox"
+               rows="3" cols="30" label="JFIELD_META_KEYWORDS_LABEL"
+               description="JFIELD_META_KEYWORDS_DESC" />
 
-		<field name="metadesc" type="textarea"
-			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
-			class="inputbox" rows="3" cols="30" />
+        <field name="metadesc" type="textarea"
+               label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+               class="inputbox" rows="3" cols="30" />
 
-	</fieldset>
+    </fieldset>
 
-	<fields name="params">
-		<fieldset name="image">
-			<field name="imageurl" type="media" directory="banners"
-				hide_none="1" label="COM_DEALS_FIELD_IMAGE_LABEL"
-				size="40"
-				description="COM_DEALS_FIELD_IMAGE_DESC" />
-		</fieldset>
-	</fields>
+    <fields name="params">
+        <fieldset name="image">
+            <field name="imageurl" type="media" directory="banners"
+                   hide_none="1" label="COM_DEALS_FIELD_IMAGE_LABEL"
+                   size="40"
+                   description="COM_DEALS_FIELD_IMAGE_DESC" />
+        </fieldset>
+    </fields>
 
 </form>

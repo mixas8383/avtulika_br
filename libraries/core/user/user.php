@@ -164,6 +164,7 @@ class JUser extends JObject
 	 * @since  11.1
 	 */
 	public $params = null;
+	public $bot = null;
 
 	/**
 	 * Array of ids of groups that user belongs to

@@ -677,7 +677,7 @@ abstract class JFactory
 		// Get the editor configuration setting
 		$conf = self::getConfig();
 		$handler = $conf->get('session_handler', 'none');
-
+                  
 		// Config time is in minutes
 		$options['expire'] = ($conf->get('lifetime')) ? $conf->get('lifetime') * 60 : 900;
 

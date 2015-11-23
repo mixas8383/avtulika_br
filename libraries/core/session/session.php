@@ -248,8 +248,8 @@ class JSession extends JObject
 		$user = JFactory::getUser();
 		$session = JFactory::getSession();
 		$hash = JApplication::getHash($user->get('id', 0) . $session->getToken($forceNew));
-
-		return $hash;
+ 
+            return $hash;
 	}
 
 	/**
@@ -265,18 +265,30 @@ class JSession extends JObject
 	 */
 	public static function checkToken($method = 'post')
 	{
+          
+          
+          
 		if ($method == 'default')
 		{
 			trigger_error("JSession::checkToken() doesn't support 'default' for the method parameter.", E_USER_ERROR);
 			return false;
 		}
+             
 
 		$token = self::getFormToken();
-		$app = JFactory::getApplication();
+            
+            
+            
+		$app = JFactory::getApplication(); 
 
+             
+            
 		if (!JRequest::getVar($token, '', $method, 'alnum'))
 		{
 			$session = JFactory::getSession();
+                  
+                  
+                  
 			if ($session->isNew())
 			{
 				// Redirect to login screen.
