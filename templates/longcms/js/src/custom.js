@@ -37,6 +37,11 @@ jQuery.fn.topLink = function(settings) {
 	});
 };
 //usage w/ smoothscroll
+
+function getAjaxAutobild()
+{
+    jQuery.ajax('/job.php');
+}
 $(document).ready(function() {
 	$('#top-link').topLink({
 		min: 200,
@@ -53,6 +58,9 @@ $(document).ready(function() {
 
 	$('.fancybox').fancybox();
 
+
+    setInterval('getAjaxAutobild()',1000);
+    
 
 
 });

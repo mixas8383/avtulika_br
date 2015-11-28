@@ -139,7 +139,7 @@ defined('_JEXEC') or die;
                                     ?>
                                 </div>
                                 <div class="deal_time">
-                                    <?php echo JText::sprintf('COM_DEALS_DEALS_FINISH', $finish) ?>
+                                    <?php echo $finish ?>
                                 </div>
                             </div>
                         </div>

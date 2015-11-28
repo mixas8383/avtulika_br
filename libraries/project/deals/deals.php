@@ -5,7 +5,6 @@
  * @copyright  Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
-
 defined('JPATH_PLATFORM') or die('Restricted access');
 
 jimport('core.utilities.math');
@@ -16,6 +15,7 @@ jimport('project.user');
 jimport('project.transaction');
 jimport('project.paymethods.paymethod');
 jimport('project.mailjob');
+
 /**
  * LongCMS Platform Factory class
  *
@@ -24,17 +24,18 @@ jimport('project.mailjob');
  */
 abstract class PDeals
 {
+
     private static $_user;
     private static $_months = array(
-        1  => 'იანვარს',
-        2  => 'თებერვალს',
-        3  => 'მარტს',
-        4  => 'აპრილს',
-        5  => 'მაისს',
-        6  => 'ივნისს',
-        7  => 'ივლისს',
-        8  => 'აგვისტოს',
-        9  => 'სექტემბერს',
+        1 => 'იანვარს',
+        2 => 'თებერვალს',
+        3 => 'მარტს',
+        4 => 'აპრილს',
+        5 => 'მაისს',
+        6 => 'ივნისს',
+        7 => 'ივლისს',
+        8 => 'აგვისტოს',
+        9 => 'სექტემბერს',
         10 => 'ოქტომბერს',
         11 => 'ნოემბერს',
         12 => 'დეკემბერს',
@@ -42,15 +43,17 @@ abstract class PDeals
 
     public static function getCategories($filter = false, $only_parents = false)
     {
-        $db    = JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = $db->getQuery(true);
 
         $query->select('*');
         $query->from('#__deals_categories');
-        if ($filter) {
+        if ($filter)
+        {
             $query->where('published = 1');
         }
-        if ($only_parents) {
+        if ($only_parents)
+        {
             $query->where('level != 3');
         }
 
@@ -63,7 +66,7 @@ abstract class PDeals
 
     public static function getCompanies()
     {
-        $db    = JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = $db->getQuery(true);
 
         $query->select('*');
@@ -77,7 +80,7 @@ abstract class PDeals
 
     public static function getCities()
     {
-        $db    = JFactory::getDBO();
+        $db = JFactory::getDBO();
         $query = $db->getQuery(true);
 
         $query->select('*');
@@ -91,7 +94,8 @@ abstract class PDeals
 
     public static function getUser($id = null, $field = 'id')
     {
-        if (empty(self::$_user[$field][$id])) {
+        if (empty(self::$_user[$field][$id]))
+        {
             self::$_user[$field][$id] = User::getInstance($id, $field);
         }
         return self::$_user[$field][$id];
@@ -104,19 +108,22 @@ abstract class PDeals
 
     public static function insertBatchMailJob(array $idx = array())
     {
-        $return         = new stdClass;
-        $return->msg    = '';
+        $return = new stdClass;
+        $return->msg = '';
         $return->status = false;
 
-        if (empty($idx)) {
+        if (empty($idx))
+        {
             $return->msg = 'Deal idx is empty';
             return $return;
         }
         $mailjob = new MailJob;
 
-        try {
+        try
+        {
             $mailjob->create($idx);
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             $return->msg = $e->getMessage();
             return $return;
         }
@@ -127,20 +134,22 @@ abstract class PDeals
 
     public static function runBatchMailJob()
     {
-        $db       = JFactory::getDBO();
-        $query    = $db->getQuery(true);
-        $jdate    = JFactory::getDate();
-        $now      = $jdate->toSql();
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
         $nullDate = $db->quote($db->getNullDate());
 
-        $return         = new stdClass;
-        $return->msg    = '';
+        $return = new stdClass;
+        $return->msg = '';
         $return->status = false;
 
         $mailjob = new MailJob;
-        try {
+        try
+        {
             $mailjob->load();
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             $return->msg = $e->getMessage();
             return $return;
         }
@@ -150,10 +159,10 @@ abstract class PDeals
 
     public static function getDeals($category = null, $limit = null, $orderBy = null, $search = false)
     {
-        $db       = JFactory::getDBO();
-        $query    = $db->getQuery(true);
-        $jdate    = JFactory::getDate();
-        $now      = $jdate->toSql();
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
         $nullDate = $db->quote($db->getNullDate());
 
         $query->select('d.*');
@@ -171,85 +180,97 @@ abstract class PDeals
         $query->select('co.title AS company_title');
         $query->join('LEFT', '#__deals_companies AS co ON co.id = d.company_id');
 
-        if ($category) {
+        if ($category)
+        {
             $query->where('d.category_id = ' . (int) $category);
         }
         $query->where('d.is_market = 0');
         $query->where('d.state = 1');
         $query->where('(d.publish_up = ' . $nullDate . ' OR d.publish_up <= ' . $query->quote($now) . ')');
-        $query->where('(d.publish_down = ' . $nullDate . ' OR d.publish_down >= ' . $query->quote($now) . ')');
+        $query->where('((d.publish_down < ' . $query->quote($now) . ') AND ( d.bid_date > ' . $query->quote($now) . ') OR d.publish_down >= ' . $query->quote($now) . ')');
+        
+      //  $query->where('(d.publish_down < ' . $query->quote($now) . ') AND ( d.bid_date > ' . $query->quote($now) . ')');
+        
+        
 
-        if ($search) {
+        if ($search)
+        {
             $post = JRequest::get('post');
-            if (!empty($post['searchword'])) {
+            if (!empty($post['searchword']))
+            {
                 $searchword = $post['searchword'];
-                $words      = explode(' ', $post['searchword']);
+                $words = explode(' ', $post['searchword']);
                 //$wheres = array();
-                foreach ($words as $word) {
+                foreach ($words as $word)
+                {
                     $word = $db->quote('%' . $db->escape($word, true) . '%', false);
                     $query->where('(d.title LIKE ' . $word . ' OR d.text LIKE ' . $word . ')');
                 }
 
                 //$query->where('(d.title LIKE "'.$word.'" OR d.text LIKE "'.$word.'")');
-
             }
         }
 
-        if ($orderBy) {
+        if ($orderBy)
+        {
             $query->order($orderBy);
-        } else {
+        } else
+        {
             $query->order('d.ordering ASC, d.publish_up DESC');
         }
 
-        if ($limit) {
+        if ($limit)
+        {
             $db->setQuery($query, 0, intval($limit));
-        } else {
+        } else
+        {
             $db->setQuery($query);
         }
 
         $data = $db->loadAssocList();
 
         $return = array();
-        foreach ($data as $arr) {
-            $obj      = new Deal($arr);
+        foreach ($data as $arr)
+        {
+            $obj = new Deal($arr);
             $return[] = $obj;
         }
 
-        /*if (JDEBUG) {
-        $i = 1;
-        $success = 0;
-        foreach($data as $item) {
-        $id = $item['id'];
-        if (!$id) {
-        continue;
-        }
-        $sql = ' UPDATE `#__deals_deals` '
-        .' SET `ordering`='.$i.' '
-        .' WHERE `id`='.$id.' '
-        .' LIMIT 1'
-        ;
-        $db->setQuery($sql);
-        if ($db->query()) {
-        $success++;
-        }
-        $i++;
-        }
+        /* if (JDEBUG) {
+          $i = 1;
+          $success = 0;
+          foreach($data as $item) {
+          $id = $item['id'];
+          if (!$id) {
+          continue;
+          }
+          $sql = ' UPDATE `#__deals_deals` '
+          .' SET `ordering`='.$i.' '
+          .' WHERE `id`='.$id.' '
+          .' LIMIT 1'
+          ;
+          $db->setQuery($sql);
+          if ($db->query()) {
+          $success++;
+          }
+          $i++;
+          }
 
 
-        }*/
+          } */
 
         return $return;
     }
 
     public static function getExDeals()
     {
-        $db       = JFactory::getDBO();
-        $query    = $db->getQuery(true);
-        $jdate    = JFactory::getDate();
-        $now      = $jdate->toSql();
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
         $nullDate = $db->quote($db->getNullDate());
-        $app      = JFactory::getApplication();
-        $jinput   = $app->input;
+        $app = JFactory::getApplication();
+        $jinput = $app->input;
 
         // count
         $query->select('COUNT(d.id) AS total');
@@ -306,26 +327,27 @@ abstract class PDeals
         $data = $db->loadAssocList();
 
         $return = array();
-        foreach ($data as $arr) {
-            $obj      = new Deal($arr);
+        foreach ($data as $arr)
+        {
+            $obj = new Deal($arr);
             $return[] = $obj;
         }
 
-        $retData             = new stdClass;
-        $retData->data       = $return;
+        $retData = new stdClass;
+        $retData->data = $return;
         $retData->pagination = $pagination;
         return $retData;
     }
 
     public static function getMarketDeals()
     {
-        $db       = JFactory::getDBO();
-        $query    = $db->getQuery(true);
-        $jdate    = JFactory::getDate();
-        $now      = $jdate->toSql();
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
         $nullDate = $db->quote($db->getNullDate());
-        $app      = JFactory::getApplication();
-        $jinput   = $app->input;
+        $app = JFactory::getApplication();
+        $jinput = $app->input;
 
         // count
         $query->select('COUNT(d.id) AS total');
@@ -382,44 +404,49 @@ abstract class PDeals
         $data = $db->loadAssocList();
 
         $return = array();
-        foreach ($data as $arr) {
-            $obj      = new Deal($arr);
+        foreach ($data as $arr)
+        {
+            $obj = new Deal($arr);
             $return[] = $obj;
         }
 
-        $retData             = new stdClass;
-        $retData->data       = $return;
+        $retData = new stdClass;
+        $retData->data = $return;
         $retData->pagination = $pagination;
         return $retData;
     }
 
     public static function sendMailToAdmin($transaction)
     {
-        $mailer   = JFactory::getMailer();
-        $app      = JFactory::getApplication();
+        $mailer = JFactory::getMailer();
+        $app = JFactory::getApplication();
         $mailfrom = $app->getCfg('mailfrom');
         $fromname = $app->getCfg('fromname');
-        $params   = JComponentHelper::getParams('com_deals');
+        $params = JComponentHelper::getParams('com_deals');
 
         $deals = $transaction->getDeals();
-        if (empty($deals)) {
+        if (empty($deals))
+        {
             return false;
         }
 
         $user = $transaction->getUser();
-        if (!$user->get('id')) {
+        if (!$user->get('id'))
+        {
             return false;
         }
 
         $admin_mail = $params->get('receiver_mail');
-        if (!$admin_mail) {
+        if (!$admin_mail)
+        {
             return false;
         }
 
-        $body    = self::_parseTemplate('admin', $transaction);
+        $body = self::_parseTemplate('admin', $transaction);
         $subject = JText::sprintf('COM_DEALS_BUY_USER_MAIL_SUBJECT');
 
-        if (JDEBUG) {
+        if (JDEBUG)
+        {
             return true;
         }
 
@@ -430,63 +457,70 @@ abstract class PDeals
 
     public static function sendMailToUser($transaction)
     {
-        $mailer   = JFactory::getMailer();
-        $app      = JFactory::getApplication();
+        $mailer = JFactory::getMailer();
+        $app = JFactory::getApplication();
         $mailfrom = $app->getCfg('mailfrom');
         $fromname = $app->getCfg('fromname');
-        $params   = JComponentHelper::getParams('com_deals');
+        $params = JComponentHelper::getParams('com_deals');
 
         $deals = $transaction->getDeals();
-        if (empty($deals)) {
+        if (empty($deals))
+        {
             return false;
         }
 
         $user = $transaction->getUser();
 
-        if (!$user->get('id')) {
+        if (!$user->get('id'))
+        {
             return false;
         }
 
         $user_mail = $user->get('email');
-        if (!$user_mail) {
+        if (!$user_mail)
+        {
             return false;
         }
 
-        $body    = self::_parseTemplate('user', $transaction);
+        $body = self::_parseTemplate('user', $transaction);
         $subject = JText::sprintf('COM_DEALS_BUY_USER_MAIL_SUBJECT');
-        $send    = $mailer->sendMail($mailfrom, $fromname, $user_mail, $subject, $body, true);
+        $send = $mailer->sendMail($mailfrom, $fromname, $user_mail, $subject, $body, true);
 
         return $send;
     }
 
     public static function sendMailToCompany($transaction)
     {
-        $mailer   = JFactory::getMailer();
-        $app      = JFactory::getApplication();
+        $mailer = JFactory::getMailer();
+        $app = JFactory::getApplication();
         $mailfrom = $app->getCfg('mailfrom');
         $fromname = $app->getCfg('fromname');
-        $params   = JComponentHelper::getParams('com_deals');
+        $params = JComponentHelper::getParams('com_deals');
 
         $deals = $transaction->getDeals();
-        if (empty($deals)) {
+        if (empty($deals))
+        {
             return false;
         }
 
         $user = $transaction->getUser();
-        if (!$user->get('id')) {
+        if (!$user->get('id'))
+        {
             return false;
         }
 
-        $company      = $transaction->getCompany();
+        $company = $transaction->getCompany();
         $company_mail = $company->mail;
-        if (!$company_mail) {
+        if (!$company_mail)
+        {
             return false;
         }
 
-        $body    = self::_parseTemplate('user', $transaction);
+        $body = self::_parseTemplate('user', $transaction);
         $subject = JText::sprintf('COM_DEALS_BUY_USER_MAIL_SUBJECT');
 
-        if (JDEBUG) {
+        if (JDEBUG)
+        {
             return true;
         }
 
@@ -497,19 +531,21 @@ abstract class PDeals
 
     public static function sendBalanceAddMailToUser($transaction)
     {
-        $mailer   = JFactory::getMailer();
-        $app      = JFactory::getApplication();
+        $mailer = JFactory::getMailer();
+        $app = JFactory::getApplication();
         $mailfrom = $app->getCfg('mailfrom');
         $fromname = $app->getCfg('fromname');
-        $params   = JComponentHelper::getParams('com_deals');
+        $params = JComponentHelper::getParams('com_deals');
 
         $user = $transaction->getUser();
-        if (!$user->get('id')) {
+        if (!$user->get('id'))
+        {
             return false;
         }
 
         $user_mail = $user->get('email');
-        if (!$user_mail) {
+        if (!$user_mail)
+        {
             return false;
         }
         $total = $transaction->getTotal();
@@ -517,7 +553,7 @@ abstract class PDeals
         $lang = JFactory::getLanguage();
         $lang->load('com_deals');
 
-        $body    = JText::sprintf('COM_DEALS_DEPOSIT_USER_MAIL_BODY', $total);
+        $body = JText::sprintf('COM_DEALS_DEPOSIT_USER_MAIL_BODY', $total);
         $subject = JText::sprintf('COM_DEALS_DEPOSIT_USER_MAIL_SUBJECT');
 
         $send = $mailer->sendMail($mailfrom, $fromname, $user_mail, $subject, $body, true);
@@ -532,11 +568,12 @@ abstract class PDeals
         $template = 'user';
 
         $tpl_body = self::_getTemplate($template);
-        if (!$tpl_body) {
+        if (!$tpl_body)
+        {
             return false;
         }
-        $app  = JFactory::getApplication();
-        $tpl  = $app->getTemplate(true);
+        $app = JFactory::getApplication();
+        $tpl = $app->getTemplate(true);
         $logo = $tpl->params->get('logo');
 
         $deals = $transaction->getDeals();
@@ -545,141 +582,149 @@ abstract class PDeals
 
         $site_url = 'http://www.brao.ge/';
 
-        switch ($template) {
+        switch ($template)
+        {
             case 'user':
 
                 $COUPON_CODE = '124214';
-                $tpl_body    = str_replace('{COUPON_CODE}', $COUPON_CODE, $tpl_body);
+                $tpl_body = str_replace('{COUPON_CODE}', $COUPON_CODE, $tpl_body);
 
                 $BRAO_LOGO = $site_url . $logo;
-                $tpl_body  = str_replace('{BRAO_LOGO}', $BRAO_LOGO, $tpl_body);
+                $tpl_body = str_replace('{BRAO_LOGO}', $BRAO_LOGO, $tpl_body);
 
                 $BRAO_TRANS_DATE = $transaction->getDate();
-                $tpl_body        = str_replace('{BRAO_TRANS_DATE}', $BRAO_TRANS_DATE, $tpl_body);
+                $tpl_body = str_replace('{BRAO_TRANS_DATE}', $BRAO_TRANS_DATE, $tpl_body);
 
                 $BRAO_TRANS_NUMBER = $transaction->getTransactionNumber();
-                $tpl_body          = str_replace('{BRAO_TRANS_NUMBER}', $BRAO_TRANS_NUMBER, $tpl_body);
+                $tpl_body = str_replace('{BRAO_TRANS_NUMBER}', $BRAO_TRANS_NUMBER, $tpl_body);
 
                 $deal = $deals[0];
 
                 $PRODUCT_IMAGE = $site_url . $deal->getImage(1, 'image10');
-                $tpl_body      = str_replace('{PRODUCT_IMAGE}', $PRODUCT_IMAGE, $tpl_body);
+                $tpl_body = str_replace('{PRODUCT_IMAGE}', $PRODUCT_IMAGE, $tpl_body);
 
                 $PRODUCT_TITLE = $deal->getTitle();
-                $tpl_body      = str_replace('{PRODUCT_TITLE}', $PRODUCT_TITLE, $tpl_body);
+                $tpl_body = str_replace('{PRODUCT_TITLE}', $PRODUCT_TITLE, $tpl_body);
 
                 $PRODUCT_PRICE = $deal->getPrice() . ' ' . JText::_('GELI');
-                $tpl_body      = str_replace('{PRODUCT_PRICE}', $PRODUCT_PRICE, $tpl_body);
+                $tpl_body = str_replace('{PRODUCT_PRICE}', $PRODUCT_PRICE, $tpl_body);
 
                 $PRODUCT_DESCRIPTION = $deal->getText();
-                $tpl_body            = str_replace('{PRODUCT_DESCRIPTION}', $PRODUCT_DESCRIPTION, $tpl_body);
+                $tpl_body = str_replace('{PRODUCT_DESCRIPTION}', $PRODUCT_DESCRIPTION, $tpl_body);
 
-                $COMPANY_NAME    = $deal->getCompanyName();
+                $COMPANY_NAME = $deal->getCompanyName();
                 $COMPANY_ADDRESS = $deal->getCompanyAddress();
-                $COMPANY_PHONE   = $deal->getCompanyPhone();
-                $COMPANY_HOURS   = $deal->getCompanyHours();
-                $COMPANY_URL     = $deal->getCompanyUrl();
+                $COMPANY_PHONE = $deal->getCompanyPhone();
+                $COMPANY_HOURS = $deal->getCompanyHours();
+                $COMPANY_URL = $deal->getCompanyUrl();
                 ob_start();
-                if (!empty($COMPANY_NAME)) {
+                if (!empty($COMPANY_NAME))
+                {
                     ?>
-		                    <div class="deal_company_title" style="padding-bottom: 10px;">
-                        <img src="		<?php echo $site_url?>templates/longcms/images/icons/country_icon.png" alt="ico" title="კომპანიის სახელი" />
+                    <div class="deal_company_title" style="padding-bottom: 10px;">
+                        <img src="		<?php echo $site_url ?>templates/longcms/images/icons/country_icon.png" alt="ico" title="კომპანიის სახელი" />
                         <span style="font-weight:bold;line-height:24px;width:284px;padding-left:10px;">
-                            		<?php echo $COMPANY_NAME;?>
-		                        </span>
-                                  <div style="clear:both;"></div>
+                            <?php echo $COMPANY_NAME; ?>
+                        </span>
+                        <div style="clear:both;"></div>
                     </div>
-                    		<?php
-    }
+                    <?php
+                }
 
-                if (!empty($COMPANY_URL)) {
+                if (!empty($COMPANY_URL))
+                {
                     $company_url2 = $COMPANY_URL;
-                    if (substr($company_url2, 0, 4) !== 'http') {
+                    if (substr($company_url2, 0, 4) !== 'http')
+                    {
                         $company_url2 = 'http://' . $company_url2;
                     }
                     ?>
-		                    <div class="deal_company_url" style="padding-bottom: 10px;">
-                        <img src="		<?php echo $site_url?>templates/longcms/images/icons/web_icon.png" alt="ico" title="კომპანიის ვებ-საიტი" />
+                    <div class="deal_company_url" style="padding-bottom: 10px;">
+                        <img src="		<?php echo $site_url ?>templates/longcms/images/icons/web_icon.png" alt="ico" title="კომპანიის ვებ-საიტი" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
-                            <a href="		<?php echo $company_url2;?>" target="_blank">
-                                		<?php echo $COMPANY_URL;?>
-		                            </a>
+                            <a href="		<?php echo $company_url2; ?>" target="_blank">
+                                <?php echo $COMPANY_URL; ?>
+                            </a>
                         </span>
-                                  <div style="clear:both;"></div>
+                        <div style="clear:both;"></div>
                     </div>
-                    		<?php
-    }
+                    <?php
+                }
 
-                if (!empty($COMPANY_ADDRESS)) {
+                if (!empty($COMPANY_ADDRESS))
+                {
                     ?>
-		                    <div class="deal_company_address" style="padding-bottom: 10px;">
-                        <img src="		<?php echo $site_url?>templates/longcms/images/icons/info_icon.png" alt="ico" title="კომპანიის მისამართი" />
+                    <div class="deal_company_address" style="padding-bottom: 10px;">
+                        <img src="		<?php echo $site_url ?>templates/longcms/images/icons/info_icon.png" alt="ico" title="კომპანიის მისამართი" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
-                            		<?php echo $COMPANY_ADDRESS;?>
-		                        </span>
-                                  <div style="clear:both;"></div>
+                            <?php echo $COMPANY_ADDRESS; ?>
+                        </span>
+                        <div style="clear:both;"></div>
                     </div>
-                    		<?php
-    }
-                if (!empty($COMPANY_PHONE)) {
+                    <?php
+                }
+                if (!empty($COMPANY_PHONE))
+                {
                     ?>
-		                    <div class="deal_company_phone" style="padding-bottom: 10px;">
-                        <img src="		<?php echo $site_url?>templates/longcms/images/icons/phone_icon.png" alt="ico" title="კომპანიის ტელეფონი" />
+                    <div class="deal_company_phone" style="padding-bottom: 10px;">
+                        <img src="		<?php echo $site_url ?>templates/longcms/images/icons/phone_icon.png" alt="ico" title="კომპანიის ტელეფონი" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
-                            		<?php echo $COMPANY_PHONE;?>
-		                        </span>
-                                  <div style="clear:both;"></div>
+                            <?php echo $COMPANY_PHONE; ?>
+                        </span>
+                        <div style="clear:both;"></div>
                     </div>
-                    		<?php
-    }
-                if (!empty($COMPANY_HOURS)) {
+                    <?php
+                }
+                if (!empty($COMPANY_HOURS))
+                {
                     ?>
-		                    <div class="deal_company_hours" style="padding-bottom: 10px;">
-                        <img src="		<?php echo $site_url?>templates/longcms/images/icons/time_icon.png" alt="ico" title="კომპანიის სამუშაო საათები" />
+                    <div class="deal_company_hours" style="padding-bottom: 10px;">
+                        <img src="		<?php echo $site_url ?>templates/longcms/images/icons/time_icon.png" alt="ico" title="კომპანიის სამუშაო საათები" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
-                            		<?php echo $COMPANY_HOURS;?>
-		                        </span>
-                                  <div style="clear:both;"></div>
+                            <?php echo $COMPANY_HOURS; ?>
+                        </span>
+                        <div style="clear:both;"></div>
                     </div>
-                    		<?php
-    }
+                    <?php
+                }
                 $chtml = ob_get_clean();
 
                 $tpl_body = str_replace('{COMPANY_DESCRIPTION}', $chtml, $tpl_body);
 
                 $USER_FULL_NAME = $user->get('name') . ' ' . $user->get('surname');
-                $tpl_body       = str_replace('{USER_FULL_NAME}', $USER_FULL_NAME, $tpl_body);
+                $tpl_body = str_replace('{USER_FULL_NAME}', $USER_FULL_NAME, $tpl_body);
 
                 $USER_PERS_NUM = $user->get('persNumber');
-                $tpl_body      = str_replace('{USER_PERS_NUM}', $USER_PERS_NUM, $tpl_body);
+                $tpl_body = str_replace('{USER_PERS_NUM}', $USER_PERS_NUM, $tpl_body);
 
                 $USER_MOB = $user->get('mobile');
                 $tpl_body = str_replace('{USER_MOB}', $USER_MOB, $tpl_body);
 
                 break;
-
         }
-        /*if (JDEBUG) {
-        print($tpl_body);
-        die;
+        /* if (JDEBUG) {
+          print($tpl_body);
+          die;
 
-        }*/
+          } */
 
         return $tpl_body;
     }
 
     public static function _parseBatchTemplate(array $deals)
     {
-        if (empty($deals)) {
+        if (empty($deals))
+        {
             return false;
         }
-        $app      = JFactory::getApplication();
-        $tpl      = $app->getTemplate(true);
-        $logo     = $tpl->params->get('logo');
+        $app = JFactory::getApplication();
+        $tpl = $app->getTemplate(true);
+        $logo = $tpl->params->get('logo');
         $site_url = 'http://www.brao.ge/';
 
         $file = JPATH_LIBRARIES . '/project/mail/batch_head.php';
-        if (!JFile::exists($file)) {
+        if (!JFile::exists($file))
+        {
             return false;
         }
         ob_start();
@@ -687,7 +732,8 @@ abstract class PDeals
         $body_head = ob_get_clean();
 
         $file = JPATH_LIBRARIES . '/project/mail/batch_foot.php';
-        if (!JFile::exists($file)) {
+        if (!JFile::exists($file))
+        {
             return false;
         }
         ob_start();
@@ -695,7 +741,8 @@ abstract class PDeals
         $body_foot = ob_get_clean();
 
         $file = JPATH_LIBRARIES . '/project/mail/batch_deal.php';
-        if (!JFile::exists($file)) {
+        if (!JFile::exists($file))
+        {
             return false;
         }
         ob_start();
@@ -703,29 +750,29 @@ abstract class PDeals
         $body_deal = ob_get_clean();
 
         $body = $body_head;
-        foreach ($deals as $deal) {
+        foreach ($deals as $deal)
+        {
             $b_deal = $body_deal;
 
             // $BRAO_LOGO = $site_url.$logo;
             // $tpl_body = str_replace('{BRAO_LOGO}', $BRAO_LOGO, $tpl_body);
 
             $PRODUCT_IMAGE = $site_url . $deal->getImage(1, 'image10');
-            $b_deal        = str_replace('{PRODUCT_IMAGE}', $PRODUCT_IMAGE, $b_deal);
+            $b_deal = str_replace('{PRODUCT_IMAGE}', $PRODUCT_IMAGE, $b_deal);
 
             $PRODUCT_TITLE = $deal->getTitle();
-            $b_deal        = str_replace('{PRODUCT_TITLE}', $PRODUCT_TITLE, $b_deal);
+            $b_deal = str_replace('{PRODUCT_TITLE}', $PRODUCT_TITLE, $b_deal);
 
             $PRODUCT_LINK = $site_url . $deal->getUrl('&utm_source=mail');
-            $b_deal       = str_replace('{PRODUCT_LINK}', $PRODUCT_LINK, $b_deal);
+            $b_deal = str_replace('{PRODUCT_LINK}', $PRODUCT_LINK, $b_deal);
 
             $PRODUCT_PRICE = $deal->getPrice() . ' ' . JText::_('GELI');
-            $b_deal        = str_replace('{PRODUCT_PRICE}', $PRODUCT_PRICE, $b_deal);
+            $b_deal = str_replace('{PRODUCT_PRICE}', $PRODUCT_PRICE, $b_deal);
 
             $PRODUCT_DESCRIPTION = $deal->getText();
-            $b_deal              = str_replace('{PRODUCT_DESCRIPTION}', $PRODUCT_DESCRIPTION, $b_deal);
+            $b_deal = str_replace('{PRODUCT_DESCRIPTION}', $PRODUCT_DESCRIPTION, $b_deal);
 
             $body .= $b_deal;
-
         }
         $body .= $body_foot;
 
@@ -735,7 +782,8 @@ abstract class PDeals
     private static function _getTemplate($template)
     {
         $file = JPATH_LIBRARIES . '/project/mail/' . $template . '.php';
-        if (!JFile::exists($file)) {
+        if (!JFile::exists($file))
+        {
             return false;
         }
 
@@ -750,13 +798,15 @@ abstract class PDeals
 
         $result = self::buildTree($categories);
 
-        if ($for_display) {
+        if ($for_display)
+        {
             $array = array();
             self::sortTree($result, $array);
             $result = $array;
         }
 
-        if ($for_frontend) {
+        if ($for_frontend)
+        {
             usort($result, array('PDeals', 'cmp'));
         }
 
@@ -767,10 +817,13 @@ abstract class PDeals
     {
         $branch = array();
 
-        foreach ($elements as $element) {
-            if ($element->parent == $parentId) {
-                $children =  self::buildTree($elements, $element->id);
-                if ($children) {
+        foreach ($elements as $element)
+        {
+            if ($element->parent == $parentId)
+            {
+                $children = self::buildTree($elements, $element->id);
+                if ($children)
+                {
                     $element->children = $children;
                 }
                 $branch[] = $element;
@@ -783,9 +836,11 @@ abstract class PDeals
     public static function sortTree(array $elements, &$array)
     {
 
-        foreach ($elements as $element) {
+        foreach ($elements as $element)
+        {
             $array[] = $element;
-            if (!empty($element->children)) {
+            if (!empty($element->children))
+            {
                 self::sortTree($element->children, $array);
                 unset($element->children);
             }
@@ -795,11 +850,46 @@ abstract class PDeals
         return true;
     }
 
-
     public static function cmp($a, $b)
     {
         return strcmp($a->ordering, $b->ordering);
     }
 
+    public static function getActiveAution($category = null, $limit = null, $orderBy = null, $search = false)
+    {
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
+        $nullDate = $db->quote($db->getNullDate());
+
+        $query->select('d.*');
+        $query->from('#__deals_deals AS d');
+
+
+
+        // $query->where('(d.publish_up = ' . $nullDate . ' OR d.publish_up <= ' . $query->quote($now) . ')');
+        //$query->where('(d.publish_down = ' . $nullDate . ' OR d.publish_down >= ' . $query->quote($now) . ')');
+        $query->where('(d.publish_down < ' . $query->quote($now) . ') AND ( d.bid_date > ' . $query->quote($now) . ')');
+
+
+
+
+
+
+        $db->setQuery($query);
+        $data = $db->loadAssocList();
+
+        $return = array();
+        foreach ($data as $arr)
+        {
+            $obj = new Deal($arr);
+            $return[] = $obj;
+        }
+
+
+
+        return $return;
+    }
 
 }

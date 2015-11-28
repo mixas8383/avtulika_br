@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @package    LongCMS.Platform
  *
@@ -21,9 +20,13 @@ class Deal
     private $_db;
     private $_app;
     private $_multipic;
+    private $_autobidTime;
+    private $_autobidIncrement;
 
     public function __construct($data)
     {
+        $this->_autobidTime = 2;
+        $this->_autobidIncrement = 10;
         $this->_db = JFactory::getDBO();
         $this->_app = JFactory::getApplication();
         $this->_multipic = JFactory::getMultipic();
@@ -315,11 +318,84 @@ class Deal
             $day = $jdate->format('j', true);
             $month = PDeals::getMonthName($jdate->format('n', true));
             $hour = $jdate->format('H:i', true);
-            return JText::sprintf('COM_DEALS_DATE_FORMAT2', $day, $month, $hour);
-        } else
+            $finish = JText::sprintf('COM_DEALS_DATE_FORMAT2', $day, $month, $hour);
+            $finish = JText::sprintf('COM_DEALS_DEALS_FINISH', $finish);
+
+            return $finish;
+        } else if (($jdate->toUnix() - $now->toUnix()) < (60 * 60 * 24) && ($jdate->toUnix() - $now->toUnix()) > 0)
+        {// active 1 day counter bidding
+            $houers = ($jdate->toUnix() - $now->toUnix());
+
+            $timer = $this->_getTime($houers);
+
+            ob_start();
+            ?>
+            <span class="timerCounter timerCounter_<?php echo $this->id; ?>">
+                <span class="timer_counter_h">
+                    <?php echo $timer->h; ?> 
+                </span>:
+                <span class="timer_counter_m">
+                    <?php echo $timer->m; ?> 
+                </span>:
+                <span class="timer_counter_s">
+                    <?php echo $timer->s; ?> 
+                </span>
+
+            </span>
+
+
+            <?php
+            $html = ob_get_clean();
+            return $html;
+        } else if (($jdate->toUnix() - $now->toUnix()) < 0 && ($bidDate->toUnix() - $now->toUnix()) > 0)
         {
-            
+            //if active bid
+            $houers = ($bidDate->toUnix() - $now->toUnix());
+
+            $timer = $this->_getTime($houers);
+
+            ob_start();
+            ?>
+            <span class="timerCounter timerCounter_<?php echo $this->id; ?>">
+                <span class="timer_counter_h">
+                    <?php echo $timer->h; ?> 
+                </span>:
+                <span class="timer_counter_m">
+                    <?php echo $timer->m; ?> 
+                </span>:
+                <span class="timer_counter_s">
+                    <?php echo $timer->s; ?> 
+                </span>
+            </span>
+
+
+            <?php
+            $html = ob_get_clean();
+            return $html;
         }
+    }
+
+    private function _getTime($time)
+    {
+        $ret = new stdClass();
+
+        $ret->h = (int) ($time / 3600);
+        $ret->m = (int) (($time - $ret->h * 3600) / 60);
+        $ret->s = $time - $ret->h * 3600 - $ret->m * 60;
+        if (strlen($ret->h) < 2)
+        {
+            $ret->h = '0' . $ret->h;
+        }
+        if (strlen($ret->m) < 2)
+        {
+            $ret->m = '0' . $ret->m;
+        }
+        if (strlen($ret->s) < 2)
+        {
+            $ret->s = '0' . $ret->s;
+        }
+
+        return $ret;
     }
 
     public function getDiscount()
@@ -358,6 +434,184 @@ class Deal
             return false;
         }
         return array_key_exists($name, $this->_data) && !empty($this->_data[$name]) ? true : false;
+    }
+
+    public function doAutoDeal()
+    {
+        $autobid = $this->isTimeToAutobid();
+        
+         
+        if ($autobid)
+        {
+            $autodealers = $this->getAutoDealers();
+ 
+
+            if (!empty($autodealers))
+            {
+                $nextBidder = $this->getNextAutobider();
+
+                $this->doNextBid($nextBidder->user_id, $nextBidder->bot, 1);
+            }
+        }
+    }
+
+    public function getAutoDealers()
+    {
+        if (!empty($this->_autobids))
+        {
+            return $this->_autobilds;
+        }
+
+        $addWhere = '';
+        if ($this->real_bids >= $this->bot_max_bit)
+        {
+            $addWhere = ' and a.bot!=1';
+        }
+
+        $this->_db->setQuery(''
+                . ''
+                . 'SELECT * from #__deals_autobit AS a'
+                . ' LEFT JOIN #__users as u on u.id=a.user_id'
+                . ''
+                . ' WHERE a.deal_id=' . $this->id
+                . ' AND u.bids > 0 '
+                . $addWhere
+                . ' order by a.id asc'
+                . '');
+        $this->_autobilds = $this->_db->loadObjectList();
+
+
+        return $this->_autobilds;
+    }
+
+    public function getNextAutobider()
+    {
+        $dillers = $this->getAutoDealers();
+
+        if (count($dillers) > 1)
+        {
+            $markedDiller = 0;
+            $findMarker = false;
+            for ($i = 0; $i < count($dillers); $i++)
+            {
+                if ($dillers[$i]->marker == 1)
+                {
+                    $findMarker = true;
+                    $markedDiller = $i;
+                    break;
+                }
+            }
+            if ($findMarker)
+            {
+                if (isset($dillers[$markedDiller + 1]))
+                {
+                    return $dillers[$markedDiller + 1];
+                }
+            }
+        }
+        return $dillers[0];
+    }
+
+    public function isTimeToAutobid()
+    {
+        $nowDate = JFactory::getDate();
+        $lastTime = JFactory::getDate($this->bid_date);
+
+        if (($lastTime->toUnix() - $nowDate->toUnix()) < $this->_autobidTime)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function getLastBid()
+    {
+        $this->_db->setQuery(''
+                . ''
+                . ' Select * from #__deals_bids where deal_id=' . $this->id
+                . ' order by id desc limit 1'
+                . ''
+                . '');
+        $lastBid = $this->_db->loadObject();
+
+
+        return $lastBid;
+    }
+
+    public function doNextBid($userId, $bot = 0, $autobid = 0)
+    {
+         if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] == 'Debug')
+         {
+             echo '<pre>'.__FILE__.' -->>| <b> Line </b>'.__LINE__.'</pre><pre>';
+             print_r($userId);
+             die;
+             
+         }
+        
+        
+        $date = JFactory::getDate();
+        $this->_db->setQuery(''
+                . 'INSERT INTO #__deals_bids (`user_id`,`deal_id`,`bot`,`date`,`autobid`) VALUES'
+                . '(' . $userId . ''
+                . ',' . $this->id
+                . ',' . $bot
+                . ',' . $this->_db->quote($date->toSql())
+                . ',' . $autobid
+                . ')'
+                . '');
+        $this->_db->execute();
+        $lastTime = JFactory::getDate($this->bid_date);
+        $newTime = JFactory::getDate($lastTime->toUnix() + $this->_autobidIncrement);
+
+        $dealSets = array();
+        if ($bot)
+        {
+            $dealSets[] = 'bid_date=' . $this->_db->quote($newTime->toSql());
+            $dealSets[] = 'total_bids=total_bids+1';
+        } else
+        {
+            $dealSets[] = 'bid_date=' . $this->_db->quote($newTime->toSql());
+            $dealSets[] = 'total_bids=total_bids+1';
+            $dealSets[] = 'real_bids=real_bids+1';
+        }
+        $this->_db->setQuery(''
+                . ''
+                . 'UPDATE #__deals_deals SET ' . implode(',', $dealSets)
+                . ' where id=' . $this->id
+                . '');
+        $this->_db->execute();
+        if (!$bot)
+        {
+            $this->_db->setQuery(''
+                    . ''
+                    . 'UPDATE #__users SET bids=bids-1' . $this->_db->quote($newTime->toSql())
+                    . ' WHERE id=' . $userId
+                    . '');
+            $this->_db->execute();
+        }
+        if ($autobid)
+        {
+            $this->placeAutobidderMarker($userId);
+        }
+        return;
+    }
+
+    private function placeAutobidderMarker($userId)
+    {
+        $this->_db->setQuery(''
+                . ''
+                . 'update #__deals_autobit set marker=0'
+                . ' where deal_id=' . $this->id
+                . '');
+        $this->_db->execute();
+        $this->_db->setQuery(''
+                . ''
+                . 'update #__deals_autobit set marker=1'
+                . ' where deal_id=' . $this->id
+                . ' and user_id=' . $userId
+                . '');
+        $this->_db->execute();
+        returns;
     }
 
 }
