@@ -188,10 +188,10 @@ abstract class PDeals
         $query->where('d.state = 1');
         $query->where('(d.publish_up = ' . $nullDate . ' OR d.publish_up <= ' . $query->quote($now) . ')');
         $query->where('((d.publish_down < ' . $query->quote($now) . ') AND ( d.bid_date > ' . $query->quote($now) . ') OR d.publish_down >= ' . $query->quote($now) . ')');
-        
-      //  $query->where('(d.publish_down < ' . $query->quote($now) . ') AND ( d.bid_date > ' . $query->quote($now) . ')');
-        
-        
+
+        //  $query->where('(d.publish_down < ' . $query->quote($now) . ') AND ( d.bid_date > ' . $query->quote($now) . ')');
+
+
 
         if ($search)
         {
@@ -890,6 +890,24 @@ abstract class PDeals
 
 
         return $return;
+    }
+
+    public static function loadActiveLot($id)
+    {
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
+        $nullDate = $db->quote($db->getNullDate());
+        $query->select('d.*');
+        $query->from('#__deals_deals AS d');
+        $query->where('( d.bid_date > ' . $query->quote($now) . ')');
+        $query->where(' d.id =' .(int)$id);
+        //  $db->setQuery($query);
+        $db->setQuery($query, 0, 1);
+        $data = $db->loadAssoc();
+        $obj = new Deal($data);
+        return $obj;
     }
 
 }

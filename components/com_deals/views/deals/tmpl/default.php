@@ -141,6 +141,9 @@ defined('_JEXEC') or die;
                                 <div class="deal_time">
                                     <?php echo $finish ?>
                                 </div>
+                                <div class="bid_button">
+                                    <?php echo $deal->getBidButton(); ?>
+                                </div>
                             </div>
                         </div>
                     </div>

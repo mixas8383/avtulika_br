@@ -18,6 +18,9 @@ $lang_tag = JFactory::getLanguage()->getTagPrefix();
 
 ob_start();
 $i = 0;
+
+ 
+
 foreach ($data as $item) {
     /*if ($item->id == 93) {
         continue;
@@ -29,6 +32,7 @@ foreach ($data as $item) {
     if (empty($image)) {
         continue;
     }
+    
     $title = $item->title;
     $text = $item->introtext;
 

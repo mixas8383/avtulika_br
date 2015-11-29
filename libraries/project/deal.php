@@ -331,16 +331,18 @@ class Deal
             ob_start();
             ?>
             <span class="timerCounter timerCounter_<?php echo $this->id; ?>">
-                <span class="timer_counter_h">
-                    <?php echo $timer->h; ?> 
-                </span>:
-                <span class="timer_counter_m">
-                    <?php echo $timer->m; ?> 
-                </span>:
-                <span class="timer_counter_s">
-                    <?php echo $timer->s; ?> 
+                <input id="timerCounterHidden_<?php echo $this->id; ?>" type="hidden" name="timerCounter_<?php echo $this->id; ?>" class="timerCounterHidden"  value="<?php echo $jdate->toUnix() - $now->toUnix(); ?>"/>
+                <span class="innerBlockTimer" >
+                    <span class="timer_counter_h">
+                        <?php echo $timer->h; ?> 
+                    </span>:
+                    <span class="timer_counter_m">
+                        <?php echo $timer->m; ?> 
+                    </span>:
+                    <span class="timer_counter_s">
+                        <?php echo $timer->s; ?> 
+                    </span>
                 </span>
-
             </span>
 
 
@@ -357,14 +359,17 @@ class Deal
             ob_start();
             ?>
             <span class="timerCounter timerCounter_<?php echo $this->id; ?>">
-                <span class="timer_counter_h">
-                    <?php echo $timer->h; ?> 
-                </span>:
-                <span class="timer_counter_m">
-                    <?php echo $timer->m; ?> 
-                </span>:
-                <span class="timer_counter_s">
-                    <?php echo $timer->s; ?> 
+                <input id="timerCounterHidden_<?php echo $this->id; ?>" type="hidden" name="timerCounter_<?php echo $this->id; ?>" class="timerCounterHidden" value="<?php echo $bidDate->toUnix() - $now->toUnix(); ?>"/>
+                <span class="innerBlockTimer" >
+                    <span class="timer_counter_h">
+                        <?php echo $timer->h; ?> 
+                    </span>:
+                    <span class="timer_counter_m">
+                        <?php echo $timer->m; ?> 
+                    </span>:
+                    <span class="timer_counter_s">
+                        <?php echo $timer->s; ?> 
+                    </span>
                 </span>
             </span>
 
@@ -439,12 +444,12 @@ class Deal
     public function doAutoDeal()
     {
         $autobid = $this->isTimeToAutobid();
-        
-         
+
+
         if ($autobid)
         {
             $autodealers = $this->getAutoDealers();
- 
+
 
             if (!empty($autodealers))
             {
@@ -538,17 +543,11 @@ class Deal
         return $lastBid;
     }
 
-    public function doNextBid($userId, $bot = 0, $autobid = 0)
+    public function doNextBid($userId, $bot = 0, $autobid = 0, $incrementTime = 1)
     {
-         if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] == 'Debug')
-         {
-             echo '<pre>'.__FILE__.' -->>| <b> Line </b>'.__LINE__.'</pre><pre>';
-             print_r($userId);
-             die;
-             
-         }
-        
-        
+
+
+
         $date = JFactory::getDate();
         $this->_db->setQuery(''
                 . 'INSERT INTO #__deals_bids (`user_id`,`deal_id`,`bot`,`date`,`autobid`) VALUES'
@@ -561,6 +560,7 @@ class Deal
                 . '');
         $this->_db->execute();
         $lastTime = JFactory::getDate($this->bid_date);
+        // $lastTime = JFactory::getDate();
         $newTime = JFactory::getDate($lastTime->toUnix() + $this->_autobidIncrement);
 
         $dealSets = array();
@@ -570,7 +570,10 @@ class Deal
             $dealSets[] = 'total_bids=total_bids+1';
         } else
         {
-            $dealSets[] = 'bid_date=' . $this->_db->quote($newTime->toSql());
+            if ($incrementTime)
+            {
+                $dealSets[] = 'bid_date=' . $this->_db->quote($newTime->toSql());
+            }
             $dealSets[] = 'total_bids=total_bids+1';
             $dealSets[] = 'real_bids=real_bids+1';
         }
@@ -612,6 +615,50 @@ class Deal
                 . '');
         $this->_db->execute();
         returns;
+    }
+
+    public function getBidButton()
+    {
+
+        $user = JFactory::getUser();
+
+        if (empty($user->id))
+        {
+            $html = '';
+            ob_start();
+            ?>
+            <span class="bid_button_main">
+                <span class="bid_button_inner" onclick="alert('<?php echo JText::_('PLEAS_LOGIN_FIRST'); ?>')">
+                    <?php echo JText::_('MAKE_BID'); ?>
+                </span>
+            </span>
+
+
+
+            <?php
+            $html = ob_get_clean();
+            return $html;
+        } else
+        {
+            $html = '';
+            ob_start();
+            $Itemid = JMenu::getItemid('com_deals');
+            $bidLink = JRoute::_('index.php?option=com_deals&task=make_deal&id=' . $this->id . '&Itemid=' . $Itemid);
+            ?>
+            <span class="bid_button_main">
+                <span class="bid_button_inner" onclick="makeUserBid('<?php echo $bidLink; ?>')">
+                    <?php echo JText::_('MAKE_BID'); ?>
+                </span>
+            </span>
+
+
+
+            <?php
+            $html = ob_get_clean();
+            return $html;
+        }
+
+        return;
     }
 
 }

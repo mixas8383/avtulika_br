@@ -75,7 +75,7 @@ abstract class modSliderHelper
                 $item->link = JRoute::_('index.php?option=com_users&view=login');
             }
         }
-
+ 
         return $items;
     }
 
