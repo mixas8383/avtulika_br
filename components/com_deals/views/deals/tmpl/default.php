@@ -28,7 +28,7 @@ defined('_JEXEC') or die;
         </div>
         <?php
     }
-
+    $pageIds = array();
 
     if (!empty($this->items))
     {
@@ -36,6 +36,7 @@ defined('_JEXEC') or die;
         $a = 1;
         foreach ($this->items as $deal)
         {
+            $pageIds[] = $deal->id;
             $price = $deal->getPrice();
             $old_price = $deal->getOldPrice();
             $title = $deal->getTitle();
@@ -43,9 +44,9 @@ defined('_JEXEC') or die;
             $link = JRoute::_('index.php?option=com_deals&view=deal&id=' . $id . '&Itemid=' . $dealItemid);
             $sold = $deal->getSold();
             $finish = $deal->getFinishDate();
-            
-            
-            
+
+
+
             $monthly = $deal->getMonthly();
 
             $image = $deal->getImage(1, 'image10');
@@ -200,6 +201,7 @@ $url = $uri->toString();
 
 ob_start();
 ?>
+var currentPageIds = new Array(<?php echo implode(',',$pageIds); ?>);
 $(function() {
 var url = '<?php echo $url ?>';
 $("#cat_filter").chosen();

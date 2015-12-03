@@ -53,8 +53,8 @@ function updateTimers()
         hiddenInput = $(value).find('.timerCounterHidden');
 
         lefttime = hiddenInput.val();
-        
-       
+
+
         formatedTime = formatTime(lefttime - 1);
         hiddenInput.val(lefttime - 1);
         replacementBlock = $(value).find('.innerBlockTimer');
@@ -77,9 +77,9 @@ function formatTime(time)
     ret.m = parseInt((time - ret.h * 3600) / 60);
     ret.s = time - ret.h * 3600 - ret.m * 60;
     ret.h = ret.h + '';
-    
-    
-   
+
+
+
     if (ret.h.length < 2)
     {
         ret.h = '0' + '' + ret.h;
@@ -100,18 +100,18 @@ function formatTime(time)
 
 function makeUserBid(url)
 {
-    url = updateURLParameter(url,'rand',Math.random());
+    url = updateURLParameter(url, 'rand', Math.random());
     console.log(url)
     $.ajax({
         url: url,
-        dataType : 'json',
-        success:function(data){
-            
+        dataType: 'json',
+        success: function (data) {
+
             console.log(data);
-            
+
         }
     })
-    
+
 
 }
 
@@ -133,11 +133,45 @@ $(document).ready(function () {
     $('.fancybox').fancybox();
 
 
-   // setInterval('getAjaxAutobild()', 1000);
+    // setInterval('getAjaxAutobild()', 1000);
     setInterval('updateTimers()', 1000);
+    console.log(currentPageIds);
 
-
+    console.log(typeof (currentPageIds));
+    for (i = 0; i < currentPageIds.length; i++)
+    {
+        console.log(currentPageIds[i])
+    }
+getUpdates()
 
 });
+
+
+function getUpdates()
+{
+    if (!(typeof (currentPageIds) == 'object'))
+    {
+        console.log('not object');
+        return false;
+    }
+    for (i = 0; i < currentPageIds.length; i++)
+    {
+        console.log(currentPageIds[i])
+    }
+     $.ajax({
+        url: url,
+        dataType: 'json',
+        success: function (data) {
+
+            console.log(data);
+
+        }
+    })
+
+
+    
+    
+    console.log(currentPageIds)
+}
 
 
