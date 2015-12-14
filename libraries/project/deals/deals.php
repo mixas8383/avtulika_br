@@ -892,6 +892,89 @@ abstract class PDeals
         return $return;
     }
 
+    public static function getUpdateDeals($ids = array())
+    {
+        if (empty($ids))
+        {
+            return false;
+        }
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
+        $nullDate = $db->quote($db->getNullDate());
+
+        $query->select('d.*');
+        $query->from('#__deals_deals AS d');
+
+
+
+        // $query->where('(d.publish_up = ' . $nullDate . ' OR d.publish_up <= ' . $query->quote($now) . ')');
+        //$query->where('(d.publish_down = ' . $nullDate . ' OR d.publish_down >= ' . $query->quote($now) . ')');
+        $query->where('(d.publish_down < ' . $query->quote($now) . ') AND ( d.bid_date > ' . $query->quote($now) . ')');
+
+
+        $where = array();
+
+        $where[] = 'd.id in (' . implode(',', $ids) . ')';
+
+        $where = count($where) ? ' WHERE (' . implode(') AND (', $where) . ')' : '';
+
+
+        $db->setQuery(''
+                . ' SELECT d.*,'
+                . ''
+                . '('
+                . '     select concat(subu.name," ",subu.surname) '
+                . '     from #__deals_bids AS subd'
+                . '     left join #__users AS subu ON subu.id=subd.user_id'
+                . '     where  subd.deal_id=d.id'
+                . '     ORDER BY subd.id DESC limit 1'
+                . ') as username '
+                . ''
+                . ''
+                . ' from #__deals_deals AS d '
+                . ' '
+                . ''
+                . $where
+                . ''
+                . '');
+        $data = $db->loadObjectList();
+
+        $return = array();
+        $now = JFactory::getDate();
+        foreach ($data as $arr)
+        {
+            //  $obj = new Deal($arr);
+
+            $bidDate = JFactory::getDate($arr->bid_date);
+            $jdate = JFactory::getDate($arr->publish_down);
+
+            $arr->activeLot = 0;
+            $arr->leftTime=0;
+            
+            if (($jdate->toUnix() - $now->toUnix()) < (60 * 60 * 24) && ($jdate->toUnix() - $now->toUnix()))
+            {
+                $arr->leftTime = $jdate->toUnix() - $now->toUnix();
+            }
+
+            if (($jdate->toUnix() - $now->toUnix()) < 0 && ($bidDate->toUnix() - $now->toUnix()) > 0)
+            {
+                $arr->activeLot = 1;
+                $arr->leftTime = $bidDate->toUnix() - $now->toUnix();
+            }
+
+
+
+
+            $return[] = $arr;
+        }
+
+
+
+        return $return;
+    }
+
     public static function loadActiveLot($id)
     {
         $db = JFactory::getDBO();
@@ -902,7 +985,7 @@ abstract class PDeals
         $query->select('d.*');
         $query->from('#__deals_deals AS d');
         $query->where('( d.bid_date > ' . $query->quote($now) . ')');
-        $query->where(' d.id =' .(int)$id);
+        $query->where(' d.id =' . (int) $id);
         //  $db->setQuery($query);
         $db->setQuery($query, 0, 1);
         $data = $db->loadAssoc();

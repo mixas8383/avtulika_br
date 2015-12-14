@@ -53,7 +53,8 @@ function updateTimers()
         hiddenInput = $(value).find('.timerCounterHidden');
 
         lefttime = hiddenInput.val();
-
+console.log(hiddenInput);
+console.log(lefttime);
 
         formatedTime = formatTime(lefttime - 1);
         hiddenInput.val(lefttime - 1);
@@ -132,46 +133,134 @@ $(document).ready(function () {
 
     $('.fancybox').fancybox();
 
+    getUpdates();
+    setInterval('getAjaxAutobild()', 1000);
+    setInterval('getUpdates();updateTimers()', 1000);
 
-    // setInterval('getAjaxAutobild()', 1000);
-    setInterval('updateTimers()', 1000);
-    console.log(currentPageIds);
+    // setInterval('getUpdates()', 1000);
 
-    console.log(typeof (currentPageIds));
-    for (i = 0; i < currentPageIds.length; i++)
-    {
-        console.log(currentPageIds[i])
-    }
-getUpdates()
+
+
 
 });
 
+var updated = new Array();
 
 function getUpdates()
 {
     if (!(typeof (currentPageIds) == 'object'))
     {
-        console.log('not object');
         return false;
     }
-    for (i = 0; i < currentPageIds.length; i++)
+
+    if (currentPageIds.length < 1)
     {
-        console.log(currentPageIds[i])
+        return false;
     }
-     $.ajax({
+
+    url = '/update.php';
+
+
+
+//    for (i = 0; i < currentPageIds.length; i++)
+//    {
+//        console.log(currentPageIds[i])
+//    }
+    url = updateURLParameter(url, 'rand', Math.random());
+    $.ajax({
         url: url,
+        data: {ids: currentPageIds.join('|')},
         dataType: 'json',
         success: function (data) {
 
-            console.log(data);
 
+
+            if (data.state) {
+
+
+                if (updated.length == 0)
+                {
+                    if (data.data.length > 0)
+                    {
+                        for (i = 0; i < data.data.length; i++)
+                        {
+                            updated['ob' + data.data[i].id] = data.data[i];
+                        }
+                        updated.length = data.data.length;
+
+                    }
+                } else
+                {
+                    if (data.data.length > 0)
+                    {
+
+                        for (i = 0; i < data.data.length; i++)
+                        {
+                            if (updated['ob' + data.data[i].id] != undefined)
+                            {
+                                checkChange(updated['ob' + data.data[i].id], data.data[i])
+
+                            }
+
+                        }
+                    }
+
+                }
+
+            }
         }
     })
 
 
-    
-    
-    console.log(currentPageIds)
+
+
+}
+
+function checkChange(oldObj, newObj)
+{
+
+    st = false
+    if (oldObj.total_bids != newObj.total_bids)
+    {
+        st = true;
+    }
+    if (oldObj.activeLot != newObj.activeLot)
+    {
+        st = true;
+    }
+
+    if (st)
+    {
+        updated['ob' + newObj.id] = newObj
+        makeBidChange(newObj)
+
+    }
+
+
+
 }
 
 
+function makeBidChange(obj)
+{
+    console.log('chek');
+
+    if (obj.leftTime > 10 && obj.activeLot)
+    {
+        obj.leftTime = 10
+    }
+    if (obj.leftTime > 0) {
+       $('#timerCounterHidden_' + obj.id).val(obj.leftTime);
+    }
+    $('.timerCounter_' + obj.id).css('background-color', 'yellow');
+    $('.itemPrice_' + obj.id).html(obj.total_bids / 100);
+    $('.deal_user_' + obj.id).html(obj.username);
+    setTimeout("$('.timerCounter_" + obj.id + "').css('background-color','');", 200)
+
+
+
+
+
+
+    console.log('change visual')
+}

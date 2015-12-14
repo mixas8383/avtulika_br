@@ -252,7 +252,7 @@ class Deal
 
     public function getPrice($as_minor = false)
     {
-        $price = $this->price;
+        $price = $this->total_bids;
         return $as_minor ? $price : Balance::convertAsMajor($price);
     }
 
@@ -331,7 +331,7 @@ class Deal
             ob_start();
             ?>
             <span class="timerCounter timerCounter_<?php echo $this->id; ?>">
-                <input id="timerCounterHidden_<?php echo $this->id; ?>" type="hidden" name="timerCounter_<?php echo $this->id; ?>" class="timerCounterHidden"  value="<?php echo $jdate->toUnix() - $now->toUnix(); ?>"/>
+                <input id="timerCounterHidden_<?php echo $this->id; ?>" type="hidden" name="timerCounter_<?php echo $this->id . rand(0, 10000000); ?>" class="timerCounterHidden"  value="<?php echo $jdate->toUnix() - $now->toUnix(); ?>"/>
                 <span class="innerBlockTimer" >
                     <span class="timer_counter_h">
                         <?php echo $timer->h; ?> 
@@ -358,6 +358,7 @@ class Deal
 
             ob_start();
             ?>
+
             <span class="timerCounter timerCounter_<?php echo $this->id; ?>">
                 <input id="timerCounterHidden_<?php echo $this->id; ?>" type="hidden" name="timerCounter_<?php echo $this->id; ?>" class="timerCounterHidden" value="<?php echo $bidDate->toUnix() - $now->toUnix(); ?>"/>
                 <span class="innerBlockTimer" >
@@ -560,7 +561,7 @@ class Deal
                 . '');
         $this->_db->execute();
         $lastTime = JFactory::getDate($this->bid_date);
-        // $lastTime = JFactory::getDate();
+        $lastTime = JFactory::getDate();
         $newTime = JFactory::getDate($lastTime->toUnix() + $this->_autobidIncrement);
 
         $dealSets = array();
@@ -659,6 +660,21 @@ class Deal
         }
 
         return;
+    }
+
+    public function getLastBidUser()
+    {
+        $this->_db->setQuery(''
+                . ''
+                . 'SELECT concat(u.name," ",u.surname )'
+                . ' from #__deals_bids as b'
+                . ' INNER JOIN #__users as u on u.id=b.user_id'
+                . ' order by b.id desc'
+                . ' limit 1'
+                . ''
+                . '');
+        $ret =$this->_db->loadResult();
+        return $ret;
     }
 
 }

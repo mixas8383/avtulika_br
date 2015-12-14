@@ -38,13 +38,7 @@ jimport('project.deals.deals');
 jimport('project.deal');
 $deals = PDeals::getActiveAution();
 
- if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] == 'Debug')
- {
-     echo '<pre>'.__FILE__.' -->>| <b> Line </b>'.__LINE__.'</pre><pre>';
-     print_r($deals);
-     die;
-     
- }
+ 
 
 if(!empty($deals))
 {
@@ -55,14 +49,7 @@ if(!empty($deals))
         
         $one->doAutoDeal();
         
-         if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] == 'Debug')
-         {
-             echo '<pre>'.__FILE__.' -->>| <b> Line </b>'.__LINE__.'</pre><pre>';
-             print_r($one);
-             die;
-             
-         }
-         
+        
          
          
          

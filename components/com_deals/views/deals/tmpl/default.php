@@ -29,6 +29,7 @@ defined('_JEXEC') or die;
         <?php
     }
     $pageIds = array();
+    $pageIds[] = 1;
 
     if (!empty($this->items))
     {
@@ -74,28 +75,10 @@ defined('_JEXEC') or die;
                                 <a href="<?php echo $link ?>">
                                     <img src="<?php echo $image ?>" title="<?php echo $title ?>" alt="<?php echo $title ?>" />
                                 </a>
-                                <?php
-                                if ($deal->isInstallment())
-                                {
-                                    if ($monthly > 0)
-                                    {
-                                        ?>
-                                        <div class="deal_installment2">
-                                            <a href="<?php echo $link ?>">თვეში <?php echo $monthly ?> ლარად</a>
-                                        </div>
-                                        <?php
-                                    } else
-                                    {
-                                        ?>
-                                        <div class="deal_installment">
-                                            <a href="<?php echo $link ?>"></a>
-                                        </div>
-                                        <?php
-                                    }
-                                }
-                                ?>
+                                
                                 <div class="deal_new_price">
-                                    <?php echo JText::sprintf('COM_DEALS_DEALS_PRICE1', $price) ?>
+                                    <span class="itemPrice_<?php echo $deal->id; ?>"><?php echo $price; ?> </span>
+                                    <?php echo JText::sprintf('COM_DEALS_DEALS_PRICE1', '') ?>
                                 </div>
 
 
@@ -108,19 +91,15 @@ defined('_JEXEC') or die;
                                 <div class="deal_price">
                                     <?php echo JText::_('COM_DEALS_DEALS_PRICE') ?>
                                     <span class="deal_price1">
-                                        <?php echo JText::sprintf('COM_DEALS_DEALS_PRICE1', $price) ?>
+                                        <?php echo JText::sprintf('COM_DEALS_DEALS_PRICE1', '') ?>
+                                        <span class="itemPrice_<?php echo $deal->id; ?>"> <?php echo $price; ?></span>
                                     </span>
-                                    <span class="deal_price2">
-                                        <?php echo JText::sprintf('COM_DEALS_DEALS_PRICE1', $old_price) ?>
-                                    </span>
+                                    
                                 </div>
                                 <div class="deal_sold">
-                                    <?php echo JText::_('COM_DEALS_DEALS_SOLD') ?>
-                                    <span>
-                                        <?php echo $sold ?>
-                                    </span>
+                                    
                                 </div>
-                                <div class="deal_more">
+<!--                                <div class="deal_more">
                                     <?php
                                     if ($deal->isSoldOut())
                                     {
@@ -138,13 +117,17 @@ defined('_JEXEC') or die;
                                         <?php
                                     }
                                     ?>
-                                </div>
-                                <div class="deal_time">
+                                </div>-->
+<div>
+    <div class="deal_time" style="float:left;font-size: 14px;color: green">
                                     <?php echo $finish ?>
                                 </div>
-                                <div class="bid_button">
+    <div class="bid_button" style="float: right;display: block;width: 100px;background-color: orange;text-align: center;padding: 2px;border-radius: 2px">
                                     <?php echo $deal->getBidButton(); ?>
                                 </div>
+    <div class="cls"></div>
+</div> 
+<div class="deal_user_<?php echo $deal->id; ?>"><?php echo $deal->getLastBidUser(); ?></div>
                             </div>
                         </div>
                     </div>
@@ -188,6 +171,7 @@ defined('_JEXEC') or die;
     </div>
     <?php
 }
+
 ?>
 
 
@@ -195,6 +179,9 @@ defined('_JEXEC') or die;
 
 
 <?php
+
+ 
+
 $uri = JFactory::getUri();
 $uri->delVar('cat');
 $url = $uri->toString();
