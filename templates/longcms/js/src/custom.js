@@ -53,8 +53,8 @@ function updateTimers()
         hiddenInput = $(value).find('.timerCounterHidden');
 
         lefttime = hiddenInput.val();
-console.log(hiddenInput);
-console.log(lefttime);
+        console.log(hiddenInput);
+        console.log(lefttime);
 
         formatedTime = formatTime(lefttime - 1);
         hiddenInput.val(lefttime - 1);
@@ -108,10 +108,28 @@ function makeUserBid(url)
         dataType: 'json',
         success: function (data) {
 
-            console.log(data);
+            if (data.state)
+            {
+                tmpBids = $('.bids_auto_decrement').html();
+                tmpBids = parseInt(tmpBids);
+                tmpBids = tmpBids - 1;
+                if (tmpBids < 0)
+                {
+                    tmpBids = 0;
+                }
+
+                updateBidsCount(tmpBids)
+            }
 
         }
     })
+
+
+}
+
+function updateBidsCount(bids)
+{
+    $('.bids_auto_decrement').html(bids);
 
 
 }
@@ -206,6 +224,9 @@ function getUpdates()
                     }
 
                 }
+                
+                
+                updateBidsCount(data.bids_count)
 
             }
         }
@@ -250,7 +271,7 @@ function makeBidChange(obj)
         obj.leftTime = 10
     }
     if (obj.leftTime > 0) {
-       $('#timerCounterHidden_' + obj.id).val(obj.leftTime);
+        $('#timerCounterHidden_' + obj.id).val(obj.leftTime);
     }
     $('.timerCounter_' + obj.id).css('background-color', 'yellow');
     $('.itemPrice_' + obj.id).html(obj.total_bids / 100);

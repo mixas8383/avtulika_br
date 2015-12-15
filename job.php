@@ -6,12 +6,14 @@
  */
 
 // Set flag that this is a parent file.
+
+
 define('_JEXEC', 1);
 define('DS', DIRECTORY_SEPARATOR);
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', -1);
 
-
+echo 'one';
 require_once dirname(__FILE__) . '/defines.php';
 
 
@@ -56,6 +58,7 @@ if(!empty($deals))
          
          
     }
+    
 }
 
  

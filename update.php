@@ -40,6 +40,9 @@ $db = JFactory::getDbo();
 jimport('project.deals.deals');
 jimport('project.deal');
 
+$user = PDeals::getUser();
+
+
 $ids = $app->input->getString('ids', array());
 
 if (!empty($ids))
@@ -89,6 +92,7 @@ if (!empty($deals))
 {
     $return->state = true;
     $return->data = $deals;
+    $return->bids_count = $user->getBids();
 }
 echo json_encode($return);
 

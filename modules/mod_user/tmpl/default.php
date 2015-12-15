@@ -83,17 +83,20 @@ if ($user->get('guest')) {
 
     $name = substr($name, 0, 1).'. '.$surname;
     $id = $user->get('id');
-    $balance = $user->getBalance();
+    //$balance = $user->getBalance();
+    $balance = $user->getBids();
 
 
     $profile_itemid = JMenu::getItemid('com_users', 'profile', 'edit');
     $transactions_itemid = JMenu::getItemid('com_deals', 'transactions');
+    $wins_itemid = JMenu::getItemid('com_deals', 'wins');
     //$deposit_itemid = JMenu::getItemid('com_deals', 'deposit');
     $logout_itemid = JMenu::getItemid('com_users', 'logout');
 
 
     $profile_link = JRoute::_('index.php?option=com_users&view=profile&layout=edit&Itemid='.$profile_itemid);
     $transactions_link = JRoute::_('index.php?option=com_deals&view=transactions&Itemid='.$transactions_itemid);
+    $wins_link = JRoute::_('index.php?option=com_deals&view=wins&Itemid='.$wins_itemid);
     //$deposit_link = JRoute::_('index.php?option=com_deals&view=deposit&Itemid='.$deposit_itemid);
     $logout_link = JRoute::_('index.php?option=com_users&task=user.logout&return='.$return.'&Itemid='.$logout_itemid);
 
@@ -157,7 +160,7 @@ if ($user->get('guest')) {
         <?php echo $name.' [ <span class="user_id">'.$id.'</span> ]' ?>
     </li>
     <li>
-        <?php echo JText::_('MOD_USER_BALANCE') ?> <?php echo $balance; ?>
+        <?php echo JText::_('bids') ?> <span class="bids_auto_decrement"><?php echo $balance; ?></span>
     </li>
     <li class="dropmenu">
         <div class="btn-group open">
@@ -168,6 +171,7 @@ if ($user->get('guest')) {
             <ul class="usermenu_profile phide">
                 <li><a href="<?php echo $profile_link ?>"><?php echo JText::_('MOD_USER_PROFILEDATA');?></a></li>
                 <li><a href="<?php echo $transactions_link ?>"><?php echo JText::_('MOD_USER_TRANSACTIONS');?></a></li>
+                <li><a href="<?php echo $wins_link ?>"><?php echo JText::_('winner_lots');?></a></li>
                 <li><a href="<?php echo $logout_link ?>"><?php echo JText::_('MOD_USER_LOGOUT');?></a></li>
             </ul>
         </div>

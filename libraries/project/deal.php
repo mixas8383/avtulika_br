@@ -584,11 +584,13 @@ class Deal
                 . ' where id=' . $this->id
                 . '');
         $this->_db->execute();
+
+
         if (!$bot)
         {
             $this->_db->setQuery(''
                     . ''
-                    . 'UPDATE #__users SET bids=bids-1' . $this->_db->quote($newTime->toSql())
+                    . 'UPDATE #__users SET bids=bids-1'
                     . ' WHERE id=' . $userId
                     . '');
             $this->_db->execute();
@@ -673,7 +675,7 @@ class Deal
                 . ' limit 1'
                 . ''
                 . '');
-        $ret =$this->_db->loadResult();
+        $ret = $this->_db->loadResult();
         return $ret;
     }
 

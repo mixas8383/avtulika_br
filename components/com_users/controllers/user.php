@@ -40,10 +40,18 @@ class UsersControllerUser extends UsersController
 
 		}*/
 
+            
+             
 
 		$app = JFactory::getApplication();
 		$params = $app->getParams();
-
+ if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] == 'Debug')
+ {
+     echo '<pre>'.__FILE__.' -->>| <b> Line </b>'.__LINE__.'</pre><pre>';
+     print_r($params);
+     die;
+     
+ }
 		// Populate the data array:
 		$data = array();
 		$data['return'] = base64_decode(JRequest::getVar('return', '', 'POST', 'BASE64'));

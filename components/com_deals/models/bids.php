@@ -93,7 +93,7 @@ class DealsModelBids extends JModelLegacy
 
             if ($publish_down->toUnix() < $now->toUnix())
             {
-                $lot->doNextBid($user->id);
+                $lot->doNextBid($user->id,0);
             } else
             {
                 $lot->doNextBid($user->id,0,0,0);

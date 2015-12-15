@@ -47,6 +47,21 @@ class User
             $this->_balance = $balance;
         }
     }
+    public function getBids()
+    {
+        if(empty($this->_user->id))
+        {
+            return false;
+        }
+        $this->_db->setQuery(''
+                . ''
+                . 'SELECT bids from #__users where id='.$this->_user->id
+                . ''
+                . ''
+                . '');
+        return $this->_db->loadResult();
+        
+    }
 
     public static function getInstance($identifier = null, $field = 'id')
     {

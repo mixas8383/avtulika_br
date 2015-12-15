@@ -339,6 +339,92 @@ abstract class PDeals
         return $retData;
     }
 
+    public static function getWinDeals()
+    {
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $jdate = JFactory::getDate();
+        $now = $jdate->toSql();
+        $nullDate = $db->quote($db->getNullDate());
+        $app = JFactory::getApplication();
+        $jinput = $app->input;
+
+        $user = JFactory::getUser();
+        if (empty($user->id))
+        {
+            return false;
+        }
+
+        // count
+        $query->select('COUNT(d.id) AS total');
+        $query->from('#__deals_deals AS d');
+
+        // Join over the categories.
+        $query->select('c.title AS category_title');
+        $query->join('LEFT', '#__deals_categories AS c ON c.id = d.category_id');
+
+        // Join over the cities.
+        $query->select('ci.title AS city_title');
+        $query->join('LEFT', '#__deals_cities AS ci ON ci.id = d.city_id');
+
+        // Join over the companies.
+        $query->select('co.title AS company_title');
+        $query->join('LEFT', '#__deals_companies AS co ON co.id = d.company_id');
+
+        $query->where('d.is_market = 0');
+        $query->where('d.state = 1');
+        $query->where('winner_id='.$user->id);
+        //$query->where('(d.publish_up = '.$nullDate.' OR d.publish_up <= '.$query->quote($now).')');
+      //  $query->where('(d.publish_down != ' . $nullDate . ' AND d.publish_down <= ' . $query->quote($now) . ')');
+        
+        $db->setQuery($query);
+        $total = $db->loadResult();
+
+        jimport('core.html.pagination');
+        $limit = 15;
+        $start = $jinput->get->getUint('start', 0);
+
+        $pagination = new JPagination($total, $start, $limit);
+
+        $query->clear();
+        $query->select('d.*');
+        $query->from('#__deals_deals AS d');
+
+        // Join over the categories.
+        $query->select('c.title AS category_title');
+        $query->join('LEFT', '#__deals_categories AS c ON c.id = d.category_id');
+
+        // Join over the cities.
+        $query->select('ci.title AS city_title');
+        $query->join('LEFT', '#__deals_cities AS ci ON ci.id = d.city_id');
+
+        // Join over the companies.
+        $query->select('co.title AS company_title');
+        $query->join('LEFT', '#__deals_companies AS co ON co.id = d.company_id');
+
+        $query->where('d.state = 1');
+        //$query->where('(d.publish_up = '.$nullDate.' OR d.publish_up <= '.$query->quote($now).')');
+       // $query->where('(d.publish_down != ' . $nullDate . ' AND d.publish_down <= ' . $query->quote($now) . ')');
+        $query->where('winner_id='.$user->id);
+
+        $query->order('d.publish_down DESC');
+        $db->setQuery($query, $pagination->limitstart, $pagination->limit);
+
+        $data = $db->loadAssocList();
+
+        $return = array();
+        foreach ($data as $arr)
+        {
+            $obj = new Deal($arr);
+            $return[] = $obj;
+        }
+
+        $retData = new stdClass;
+        $retData->data = $return;
+        $retData->pagination = $pagination;
+        return $retData;
+    }
+
     public static function getMarketDeals()
     {
         $db = JFactory::getDBO();
@@ -624,7 +710,7 @@ abstract class PDeals
                     <div class="deal_company_title" style="padding-bottom: 10px;">
                         <img src="		<?php echo $site_url ?>templates/longcms/images/icons/country_icon.png" alt="ico" title="კომპანიის სახელი" />
                         <span style="font-weight:bold;line-height:24px;width:284px;padding-left:10px;">
-                            <?php echo $COMPANY_NAME; ?>
+                    <?php echo $COMPANY_NAME; ?>
                         </span>
                         <div style="clear:both;"></div>
                     </div>
@@ -643,7 +729,7 @@ abstract class PDeals
                         <img src="		<?php echo $site_url ?>templates/longcms/images/icons/web_icon.png" alt="ico" title="კომპანიის ვებ-საიტი" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
                             <a href="		<?php echo $company_url2; ?>" target="_blank">
-                                <?php echo $COMPANY_URL; ?>
+                    <?php echo $COMPANY_URL; ?>
                             </a>
                         </span>
                         <div style="clear:both;"></div>
@@ -657,7 +743,7 @@ abstract class PDeals
                     <div class="deal_company_address" style="padding-bottom: 10px;">
                         <img src="		<?php echo $site_url ?>templates/longcms/images/icons/info_icon.png" alt="ico" title="კომპანიის მისამართი" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
-                            <?php echo $COMPANY_ADDRESS; ?>
+                    <?php echo $COMPANY_ADDRESS; ?>
                         </span>
                         <div style="clear:both;"></div>
                     </div>
@@ -669,7 +755,7 @@ abstract class PDeals
                     <div class="deal_company_phone" style="padding-bottom: 10px;">
                         <img src="		<?php echo $site_url ?>templates/longcms/images/icons/phone_icon.png" alt="ico" title="კომპანიის ტელეფონი" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
-                            <?php echo $COMPANY_PHONE; ?>
+                    <?php echo $COMPANY_PHONE; ?>
                         </span>
                         <div style="clear:both;"></div>
                     </div>
@@ -681,7 +767,7 @@ abstract class PDeals
                     <div class="deal_company_hours" style="padding-bottom: 10px;">
                         <img src="		<?php echo $site_url ?>templates/longcms/images/icons/time_icon.png" alt="ico" title="კომპანიის სამუშაო საათები" />
                         <span style="line-height:24px;width:284px;padding-left:10px;">
-                            <?php echo $COMPANY_HOURS; ?>
+                    <?php echo $COMPANY_HOURS; ?>
                         </span>
                         <div style="clear:both;"></div>
                     </div>
@@ -951,8 +1037,8 @@ abstract class PDeals
             $jdate = JFactory::getDate($arr->publish_down);
 
             $arr->activeLot = 0;
-            $arr->leftTime=0;
-            
+            $arr->leftTime = 0;
+
             if (($jdate->toUnix() - $now->toUnix()) < (60 * 60 * 24) && ($jdate->toUnix() - $now->toUnix()))
             {
                 $arr->leftTime = $jdate->toUnix() - $now->toUnix();
